@@ -9,7 +9,12 @@
     <link rel="stylesheet" href="~/Telegram_Analytic.styles.css" asp-append-version="true"/>
 </head>
 <body>
-    
+<div class="container">
+    <main role="main">
+        @RenderBody() <!-- ЭТА СТРОКА ОБЯЗАТЕЛЬНА -->
+    </main>
+</div>
 @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
