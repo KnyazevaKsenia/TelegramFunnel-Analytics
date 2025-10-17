@@ -1,41 +1,39 @@
 using Microsoft.EntityFrameworkCore;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 using Telegram_Analytic.Infrastructure.Database;
 
 using Telegram_Analytic.Models;
 using Telegram_Analytic.Services;
-using Microsoft.AspNetCore.Identity;
 using Telegram_Analytic.Infrastructure.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.Services.AddControllersWithViews();
 
+//POSTGRES
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// MONGO DB 
 builder.Services.Configure<MongoDbSettings>(
     builder.Configuration.GetSection("MongoDbSettings"));
 
-builder.Services.AddSingleton<IMongoClient>(serviceProvider => 
-{
-    var settings = builder.Configuration.GetSection("MongoDbSettings").Get<MongoDbSettings>();
-    return new MongoClient(settings.ConnectionString);
-});
+BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
 
-builder.Services.AddScoped(serviceProvider =>
-{
-    var settings = builder.Configuration.GetSection("MongoDbSettings").Get<MongoDbSettings>();
-    var client = serviceProvider.GetRequiredService<IMongoClient>();
-    return client.GetDatabase(settings.DatabaseName);
-});
 
-builder.Services.AddScoped<ITrackingLinksService, TrackingLinkService>();
+// Register MongoDbContext - UNCOMMENT AND FIX THIS LINE
+builder.Services.AddSingleton<MongoDbContext>(); 
 
+//SERVICES
+builder.Services.AddScoped<ITrackingLinksService, TrackingLinksService>();
+
+//IDENTITY
 builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     {
-        // Настройки пароля
+        
         options.Password.RequireDigit = true;
         options.Password.RequireLowercase = true;
         options.Password.RequireNonAlphanumeric = false;
@@ -43,19 +41,16 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
         options.Password.RequiredLength = 6;
         options.Password.RequiredUniqueChars = 1;
 
-        // Настройки пользователя
         options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
         options.User.RequireUniqueEmail = true;
 
-        // Настройки входа
         options.SignIn.RequireConfirmedAccount = false;
         options.SignIn.RequireConfirmedEmail = false;
     })
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.AddControllersWithViews();
-builder.Services.AddEndpointsApiExplorer();
 
+builder.Services.AddEndpointsApiExplorer();
 
 var app = builder.Build();
 
@@ -65,7 +60,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 
 app.UseRouting();

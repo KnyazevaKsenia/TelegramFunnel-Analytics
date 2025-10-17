@@ -2,30 +2,33 @@
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace Telegram_Analytic.Models.MongoDb;
-
+ 
 public class SubscriptionEvent
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
     public string Id { get; set; }
-
-    [BsonElement("projectId")]
-    public Guid ProjectId { get; set; }
-
+    
     [BsonElement("telegramUserId")]
+    [BsonRequired]
+    [BsonRepresentation(BsonType.Int64)]
     public long TelegramUserId { get; set; }
-    
+
+    [BsonElement("telegramUsername")]
+    [BsonIgnoreIfNull]
+    public string TelegramUsername { get; set; }
+
+    [BsonElement("sessionToken")]
+    [BsonRequired]
+    public string SessionToken { get; set; }
+
     [BsonElement("action")]
-    public string Action { get; set; } 
-    
+    [BsonRequired]
+    public string Action { get; set; } // "subscribe"
+
     [BsonElement("timestamp")]
     [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
+    [BsonRepresentation(BsonType.DateTime)]
+    [BsonRequired]
     public DateTime Timestamp { get; set; } = DateTime.UtcNow;
-
-    [BsonElement("clickToken")]
-    public string ClickToken { get; set; } 
-
-    [BsonElement("username")]
-    public string Username { get; set; }
-
 }

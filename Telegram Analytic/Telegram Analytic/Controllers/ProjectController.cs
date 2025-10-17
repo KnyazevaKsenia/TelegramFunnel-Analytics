@@ -34,7 +34,7 @@ public class ProjectController : Controller
             {
                 return NotFound();
             }
-
+            
             ViewBag.MaxLinksPerProject = MAX_LINKS_PER_PROJECT;
             ViewBag.CurrentLinksCount = project.TrackingLinks.Count;
             

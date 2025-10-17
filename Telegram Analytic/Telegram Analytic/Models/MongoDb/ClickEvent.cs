@@ -1,8 +1,7 @@
-﻿
-namespace Telegram_Analytic.Models.MongoDb;
-
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+
+namespace Telegram_Analytic.Models.MongoDb;
 
 public class ClickEvent
 {
@@ -11,9 +10,11 @@ public class ClickEvent
     public string Id { get; set; }
 
     [BsonElement("linkId")]
+    [BsonRepresentation(BsonType.String)]
     public Guid LinkId { get; set; }
 
     [BsonElement("projectId")]
+    [BsonRepresentation(BsonType.String)]
     public Guid ProjectId { get; set; }
 
     [BsonElement("ipAddress")]
@@ -22,28 +23,28 @@ public class ClickEvent
     [BsonElement("userAgent")]
     public string UserAgent { get; set; }
 
-    [BsonElement("referrer")]
-    public string Referrer { get; set; }
+    [BsonElement("sessionToken")]
+    public string SessionToken { get; set; } // Связующий токен
+
+    [BsonElement("telegramUserId")]
+    [BsonRepresentation(BsonType.Int64)]
+    public long? TelegramUserId { get; set; }
+
+    [BsonElement("isLinkedWithTelegram")]
+    public bool IsLinkedWithTelegram { get; set; }
+
+    [BsonElement("utmSource")]
+    public string UtmSource { get; set; }    // Сохраняем UTM
+
+    [BsonElement("utmCampaign")]
+    public string UtmCampaign { get; set; }
+
+    [BsonElement("utmContent")]
+    public string UtmContent { get; set; }
 
     [BsonElement("timestamp")]
     [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
+    [BsonRepresentation(BsonType.DateTime)]
     public DateTime Timestamp { get; set; } = DateTime.UtcNow;
-
-    [BsonElement("country")]
-    public string Country { get; set; }
-
-    [BsonElement("city")]
-    public string City { get; set; }
-
-    [BsonElement("deviceType")]
-    public string DeviceType { get; set; }
-
-    [BsonElement("browser")]
-    public string Browser { get; set; }
-
-    [BsonElement("platform")]
-    public string Platform { get; set; }
-
-    [BsonElement("clickToken")]
-    public string ClickToken { get; set; } // Для связи с Telegram ботом
 }
+

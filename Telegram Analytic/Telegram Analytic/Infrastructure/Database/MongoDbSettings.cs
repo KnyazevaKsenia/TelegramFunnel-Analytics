@@ -2,20 +2,20 @@
 
 public class MongoDbSettings
 {
-    public string Host { get; set; } = "localhost";
-    public int Port { get; set; } = 27017;
-    public string DatabaseName { get; set; } = string.Empty;
-    public string Username { get; set; } = string.Empty;
-    public string Password { get; set; } = string.Empty;
+    public string Host { get; set; }
+    public int Port { get; set; }
+    public string DatabaseName { get; set; }
+    public string Username { get; set; }
+    public string Password { get; set; }
     
     public string ConnectionString 
-    { 
+    {
         get
         {
             if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
                 return $"mongodb://{Host}:{Port}";
             
-            return $"mongodb://{Username}:{Password}@{Host}:{Port}";
+            return $"mongodb://{Username}:{Password}@{Host}:{Port}/{DatabaseName}?authSource=admin";
         }
     }
 }

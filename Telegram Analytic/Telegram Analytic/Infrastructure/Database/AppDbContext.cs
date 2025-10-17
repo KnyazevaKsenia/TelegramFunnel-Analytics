@@ -3,7 +3,7 @@ using Telegram_Analytic.Models;
 
 namespace Telegram_Analytic.Infrastructure.Database;
 
-// Data/ApplicationDbContext.cs
+
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

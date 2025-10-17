@@ -17,5 +17,7 @@ public interface ITrackingLinksService
     
     public string GenerateFullUrl(string baseUrl, string urlIdentifier, string utmSource, string utmCampaign,
         string utmContent);
-    
+
+    public Task<TrackingLink> ProcessClickAsync(string identifier);
+
 }
