@@ -5,7 +5,9 @@
     var currentLinksCount = ViewBag.CurrentLinksCount as int? ?? 0;
     var linksLeft = maxLinks - currentLinksCount;
 }
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <div class="container-fluid">
     <div class="row mb-4">
         <div class="col">
@@ -29,113 +31,108 @@
         </div>
     </div>
     
-    <div class="row mb-3">
+    <div class="row mb-4">
         <div class="col-12">
-            <div class="alert alert-info py-2">
-                <div class="d-flex justify-content-between align-items-center">
-                    <span>
-                        <i class="fas fa-link me-2"></i>
-                        Использовано ссылок: <strong>@currentLinksCount из @maxLinks</strong>
-                    </span>
-                    <span class="badge bg-@(linksLeft > 5 ? "success" : linksLeft > 0 ? "warning" : "danger")">
-                        @if (linksLeft > 0)
-                        {
-                            <text>Осталось: @linksLeft</text>
-                        }
-                        else
-                        {
-                            <text>Лимит исчерпан</text>
-                        }
-                    </span>
-                </div>
-                @if (linksLeft <= 5 && linksLeft > 0)
-                {
-                    <div class="mt-2">
-                        <small class="text-warning">
-                            <i class="fas fa-exclamation-triangle me-1"></i>
-                            Осталось мало ссылок. Рассмотрите возможность удаления неиспользуемых ссылок.
-                        </small>
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="alert alert-info py-2 mb-0 flex-grow-1 me-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>
+                            <i class="fas fa-link me-2"></i>
+                            Использовано ссылок: <strong>@currentLinksCount из @maxLinks</strong>
+                        </span>
+                        <span class="badge bg-@(linksLeft > 5 ? "success" : linksLeft > 0 ? "warning" : "danger")">
+                            @if (linksLeft > 0)
+                            {
+                                <text>Осталось: @linksLeft</text>
+                            }
+                            else
+                            {
+                                <text>Лимит исчерпан</text>
+                            }
+                        </span>
                     </div>
+                </div>
+                
+                @if (currentLinksCount < maxLinks)
+                {
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createLinkModal">
+                        <i class="fas fa-plus me-2"></i>Создать ссылку
+                    </button>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-secondary" disabled>
+                        <i class="fas fa-ban me-2"></i>Лимит достигнут
+                    </button>
                 }
             </div>
+            
+            @if (linksLeft <= 5 && linksLeft > 0)
+            {
+                <div class="mt-2">
+                    <small class="text-warning">
+                        <i class="fas fa-exclamation-triangle me-1"></i>
+                        Осталось мало ссылок. Рассмотрите возможность удаления неиспользуемых ссылок.
+                    </small>
+                </div>
+            }
         </div>
     </div>
 
-    
-    <div class="row mb-5">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">
-                        Создать новую трекинговую ссылку
-                        @if (currentLinksCount >= maxLinks)
-                        {
-                            <span class="badge bg-danger ms-2">Лимит достигнут</span>
-                        }
-                    </h5>
+    <div class="modal fade" id="createLinkModal" tabindex="-1" aria-labelledby="createLinkModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createLinkModalLabel">Создать новую трекинговую ссылку</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="card-body">
-                    @if (currentLinksCount < maxLinks)
-                    {
-                        <form id="createLinkForm">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="name" class="form-label">Название ссылки *</label>
-                                        <input type="text" class="form-control" id="name" name="name" required maxlength="100">
-                                        <div class="form-text">Максимум 100 символов</div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="baseUrl" class="form-label">Целевой URL *</label>
-                                        <input type="url" class="form-control" id="baseUrl" name="baseUrl" required>
-                                        <div class="form-text">Например: https://example.com</div>
-                                    </div>
+                <div class="modal-body">
+                    <form id="createLinkForm">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Название ссылки *</label>
+                                    <input type="text" class="form-control" id="name" name="name" required maxlength="100">
+                                    <div class="form-text">Максимум 100 символов</div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="utmSource" class="form-label">UTM Source</label>
-                                        <input type="text" class="form-control" id="utmSource" name="utmSource" value="telegram">
-                                        <div class="form-text">Источник трафика (по умолчанию: telegram)</div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="utmCampaign" class="form-label">UTM Campaign</label>
-                                        <input type="text" class="form-control" id="utmCampaign" name="utmCampaign">
-                                        <div class="form-text">Название кампании</div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="utmContent" class="form-label">UTM Content</label>
-                                        <input type="text" class="form-control" id="utmContent" name="utmContent">
-                                        <div class="form-text">Различитель контента</div>
-                                    </div>
+                                <div class="mb-3">
+                                    <label for="baseUrl" class="form-label">Целевой URL *</label>
+                                    <input type="url" class="form-control" id="baseUrl" name="baseUrl" required>
+                                    <div class="form-text">Например: https://example.com</div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary" id="createLinkBtn">
-                                <span class="spinner-border spinner-border-sm d-none" role="status"></span>
-                                Создать ссылку (@linksLeft осталось)
-                            </button>
-                        </form>
-                    }
-                    else
-                    {
-                        <div class="alert alert-warning">
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-exclamation-triangle fa-2x me-3 text-warning"></i>
-                                <div>
-                                    <h5 class="alert-heading mb-2">Достигнут лимит ссылок</h5>
-                                    <p class="mb-0">
-                                        Вы создали максимальное количество ссылок (@maxLinks) для этого проекта. 
-                                        Для создания новых ссылок удалите неиспользуемые или свяжитесь с администратором.
-                                    </p>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="utmSource" class="form-label">UTM Source</label>
+                                    <input type="text" class="form-control" id="utmSource" name="utmSource" value="telegram">
+                                    <div class="form-text">Источник трафика (по умолчанию: telegram)</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="utmCampaign" class="form-label">UTM Campaign</label>
+                                    <input type="text" class="form-control" id="utmCampaign" name="utmCampaign">
+                                    <div class="form-text">Название кампании</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="utmContent" class="form-label">UTM Content</label>
+                                    <input type="text" class="form-control" id="utmContent" name="utmContent">
+                                    <div class="form-text">Различитель контента</div>
                                 </div>
                             </div>
                         </div>
-                    }
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-primary" id="submitCreateLink">
+                        <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+                        Создать ссылку
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-  
+    <!-- Список трекинговых ссылок -->
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -195,7 +192,7 @@
                         <div class="text-center py-4" id="noLinksMessage">
                             <i class="fas fa-link fa-3x text-muted mb-3"></i>
                             <p class="text-muted">Нет созданных трекинговых ссылок</p>
-                            <p class="text-muted small">Создайте первую ссылку с помощью формы выше</p>
+                            <p class="text-muted small">Нажмите "Создать ссылку" чтобы добавить первую</p>
                         </div>
                     }
                 </div>
@@ -212,55 +209,64 @@
         function updateLinksCounter(newCount) {
             currentLinksCount = newCount;
             const linksLeft = MAX_LINKS - currentLinksCount;
-            const btn = $('#createLinkBtn');
-            const counterText = `Создать ссылку (${linksLeft} осталось)`;
             
-            btn.contents().filter(function() {
-                return this.nodeType === 3 && this.textContent.trim() !== '';
-            })[0].textContent = ` ${counterText}`;
-            
-            // Обновляем статистику в alert
             $('.alert-info strong').text(`${currentLinksCount} из ${MAX_LINKS}`);
             $('.alert-info .badge').text(linksLeft > 0 ? `Осталось: ${linksLeft}` : 'Лимит исчерпан');
             $('.alert-info .badge').removeClass('bg-success bg-warning bg-danger')
                 .addClass(linksLeft > 5 ? 'bg-success' : linksLeft > 0 ? 'bg-warning' : 'bg-danger');
             
-          
             if (currentLinksCount >= MAX_LINKS) {
-                $('#createLinkForm').html(`
-                    <div class="alert alert-warning">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-exclamation-triangle fa-2x me-3 text-warning"></i>
-                            <div>
-                                <h5 class="alert-heading mb-2">Достигнут лимит ссылок</h5>
-                                <p class="mb-0">
-                                    Вы создали максимальное количество ссылок (${MAX_LINKS}) для этого проекта. 
-                                    Для создания новых ссылок удалите неиспользуемые или свяжитесь с администратором.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                `);
+                $('.btn-primary[data-bs-target="#createLinkModal"]')
+                    .replaceWith('<button type="button" class="btn btn-secondary" disabled><i class="fas fa-ban me-2"></i>Лимит достигнут</button>');
             }
         }
 
-        $('#createLinkForm').on('submit', function(e) {
-            e.preventDefault();
+        $('#submitCreateLink').on('click', function() {
+            console.log('Кнопка нажата'); 
             
-            const btn = $('#createLinkBtn');
+            const btn = $(this);
             const spinner = btn.find('.spinner-border');
             
-            // Показываем спиннер
+            const name = $('#name').val().trim();
+            const baseUrl = $('#baseUrl').val().trim();
+            
+            if (!name) {
+                showAlert('Введите название ссылки', 'danger');
+                $('#name').focus();
+                return;
+            }
+            
+            if (!baseUrl) {
+                showAlert('Введите целевой URL', 'danger');
+                $('#baseUrl').focus();
+                return;
+            }
+            
+            if (!baseUrl.startsWith('http://') && !baseUrl.startsWith('https://')) {
+                showAlert('URL должен начинаться с http:// или https://', 'danger');
+                $('#baseUrl').focus();
+                return;
+            }
+            
+            console.log('Данные для отправки:', {
+                projectId: '@Model.Id',
+                name: name,
+                baseUrl: baseUrl,
+                utmSource: $('#utmSource').val(),
+                utmCampaign: $('#utmCampaign').val(),
+                utmContent: $('#utmContent').val()
+            });
+            
             spinner.removeClass('d-none');
             btn.prop('disabled', true);
             
             const formData = {
                 projectId: '@Model.Id',
-                name: $('#name').val(),
-                baseUrl: $('#baseUrl').val(),
-                utmSource: $('#utmSource').val(),
-                utmCampaign: $('#utmCampaign').val(),
-                utmContent: $('#utmContent').val()
+                name: name,
+                baseUrl: baseUrl,
+                utmSource: $('#utmSource').val() || 'telegram',
+                utmCampaign: $('#utmCampaign').val() || '',
+                utmContent: $('#utmContent').val() || ''
             };
             
             $.ajax({
@@ -269,12 +275,14 @@
                 contentType: 'application/json',
                 data: JSON.stringify(formData),
                 success: function(response) {
+                    console.log('Ответ сервера:', response);
+                    
                     if (response.success) {
-                        // Добавляем новую ссылку в таблицу
+                       
                         addLinkToTable(response.link);
-                        // Обновляем счетчик
+                        
                         updateLinksCounter(response.currentCount);
-                        // Очищаем форму
+                        $('#createLinkModal').modal('hide');
                         $('#createLinkForm')[0].reset();
                         $('#utmSource').val('telegram');
                         showAlert('Ссылка успешно создана!', 'success');
@@ -282,8 +290,10 @@
                         showAlert('Ошибка: ' + response.error, 'danger');
                     }
                 },
-                error: function(xhr) {
-                    showAlert('Ошибка при создании ссылки', 'danger');
+                error: function(xhr, status, error) {
+                    console.error('Ошибка AJAX:', status, error);
+                    console.error('Детали ошибки:', xhr.responseText);
+                    showAlert('Ошибка при создании ссылки: ' + error, 'danger');
                 },
                 complete: function() {
                     spinner.addClass('d-none');
@@ -291,6 +301,21 @@
                 }
             });
         });
+        
+      
+        $('#createLinkForm').on('keypress', function(e) {
+            if (e.which === 13) { // Enter key
+                e.preventDefault();
+                $('#submitCreateLink').click();
+            }
+        });
+        
+     
+        $('#createLinkModal').on('show.bs.modal', function () {
+            $('#createLinkForm')[0].reset();
+            $('#utmSource').val('telegram');
+        });
+        
         
         $(document).on('click', '.delete-link-btn', function() {
             const linkId = $(this).data('link-id');
@@ -316,13 +341,14 @@
                             showAlert('Ошибка: ' + response.error, 'danger');
                         }
                     },
-                    error: function() {
-                        showAlert('Ошибка при удалении ссылки', 'danger');
+                    error: function(xhr, status, error) {
+                        showAlert('Ошибка при удалении ссылки: ' + error, 'danger');
                     }
                 });
             }
         });
         
+      
         $(document).on('click', '.copy-btn', function() {
             const url = $(this).data('url');
             const btn = $(this);
@@ -344,6 +370,7 @@
             });
         });
         
+       
         function addLinkToTable(link) {
             const formattedDate = new Date(link.createdAt).toLocaleString('ru-RU');
             
@@ -375,7 +402,11 @@
             $('#trackingLinksTable').prepend(newRow);
         }
         
+      
         function showAlert(message, type) {
+            
+            $('.alert-dismissible').alert('close');
+            
             const alert = $(`
                 <div class="alert alert-${type} alert-dismissible fade show" role="alert">
                     ${message}
@@ -389,5 +420,12 @@
                 alert.alert('close');
             }, 5000);
         }
+
+
+        $(document).ready(function() {
+            console.log('Скрипт загружен и готов');
+            console.log('MAX_LINKS:', MAX_LINKS);
+            console.log('currentLinksCount:', currentLinksCount);
+        });
     </script>
 }

@@ -23,9 +23,9 @@ public class TrackingLink
 
     [Display(Name = "Сгенерированный URL")]
     public string GeneratedUrl { get; set; }
-
+    
     // UTM-параметры
-    public string UtmSource { get; set; } = "telegram";
+    public string UtmSource { get; set; }
     public string UtmCampaign { get; set; }
     public string UtmContent { get; set; }
 

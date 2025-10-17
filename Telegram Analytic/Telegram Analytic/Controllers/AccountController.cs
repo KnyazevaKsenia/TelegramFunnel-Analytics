@@ -41,7 +41,7 @@ public class AccountController : Controller
             ModelState.AddModelError(string.Empty, "Необходимо принять условия использования");
             return View(model);
         }
-
+        
         try
         {
             var user = new ApplicationUser
@@ -62,13 +62,11 @@ public class AccountController : Controller
 
                 // Автоматический вход после регистрации
                 await _signInManager.SignInAsync(user, isPersistent: false);
+                
 
-                // Создаем первый проект для пользователя
-                await CreateFirstProjectAsync(user.Id);
-
-                return RedirectToAction("Onboarding", "Project");
+                return RedirectToAction("Index", "Projects");
             }
-
+            
             foreach (var error in result.Errors)
             {
                 ModelState.AddModelError(string.Empty, error.Description);
@@ -79,7 +77,7 @@ public class AccountController : Controller
             _logger.LogError(ex, "Ошибка при регистрации пользователя {Email}", model.Email);
             ModelState.AddModelError(string.Empty, "Произошла ошибка при регистрации");
         }
-
+        
         return View(model);
     }
 
@@ -101,19 +99,18 @@ public class AccountController : Controller
         
         var result = await _signInManager.PasswordSignInAsync(
             model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
-
+    
         if (result.Succeeded)
         {
             _logger.LogInformation("Пользователь {Email} вошел в систему", model.Email);
             
-            // Обновляем время последнего входа
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user != null)
             {
                 user.LastLoginAt = DateTime.UtcNow;
                 await _userManager.UpdateAsync(user);
             }
-
+            
             return RedirectToLocal(returnUrl);
         }
         
@@ -136,12 +133,6 @@ public class AccountController : Controller
         {
             return Redirect(returnUrl);
         }
-        return RedirectToAction("Index", "Dashboard");
-    }
-    
-    private async Task CreateFirstProjectAsync(string userId)
-    {
-        // Этот метод будет реализован в следующем спринте
-        // Создает первый проект с названием по умолчанию
+        return RedirectToAction("Index", "Projects");
     }
 }

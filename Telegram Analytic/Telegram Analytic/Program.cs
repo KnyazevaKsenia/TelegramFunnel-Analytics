@@ -5,6 +5,7 @@ using Telegram_Analytic.Infrastructure.Database;
 using Telegram_Analytic.Models;
 using Telegram_Analytic.Services;
 using Microsoft.AspNetCore.Identity;
+using Telegram_Analytic.Infrastructure.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,7 +31,7 @@ builder.Services.AddScoped(serviceProvider =>
     return client.GetDatabase(settings.DatabaseName);
 });
 
-
+builder.Services.AddScoped<ITrackingLinksService, TrackingLinkService>();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     {
@@ -52,7 +53,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     })
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.AddControllers();
+builder.Services.AddControllersWithViews();
 builder.Services.AddEndpointsApiExplorer();
 
 

@@ -1,6 +1,6 @@
 ﻿namespace Telegram_Analytic.Models;
 
-// Models/ApplicationUser.cs
+
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 
