@@ -42,7 +42,7 @@ public class ClickController : ControllerBase
             IpAddress = GetClientIpAddress(),
             UserAgent = Request.Headers["User-Agent"].ToString(),
             SessionToken = sessionToken,
-            UtmSource = decodedUtmSource,    // Сохраняем UTM
+            UtmSource = decodedUtmSource,    
             UtmCampaign = decodedUtmCampaign,
             UtmContent = utm_content,
             Timestamp = DateTime.UtcNow

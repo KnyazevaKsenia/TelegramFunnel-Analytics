@@ -1,9 +1,5 @@
-﻿namespace Telegram_Analytic.Models;
-
-
-// Models/TrackingLink.cs
-using System.ComponentModel.DataAnnotations;
-
+﻿using System.ComponentModel.DataAnnotations;
+namespace Telegram_Analytic.Models;
 public class TrackingLink
 {
     public Guid Id { get; set; }

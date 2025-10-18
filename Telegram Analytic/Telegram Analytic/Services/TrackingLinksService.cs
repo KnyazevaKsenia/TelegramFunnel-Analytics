@@ -57,7 +57,7 @@ public class TrackingLinksService : ITrackingLinksService
 
     public TrackingLink CreateTrackingLink(
         string name,
-        string baseUrl,  // Чистый URL без параметров
+        string baseUrl,  
         Guid projectId,
         string utmSource,
         string utmCampaign,
@@ -65,25 +65,21 @@ public class TrackingLinksService : ITrackingLinksService
     {
         ValidateInputParameters(name, baseUrl, projectId);
 
-        // Генерируем идентификатор для трекинговой ссылки
         var urlIdentifier = GenerateUrlIdentifier(name);
         
-        // Генерируем UTM кампанию если не указана
         utmCampaign ??= GenerateUtmCampaign(name);
         
-        // Создаем конечный URL с UTM-параметрами
         var finalUrl = BuildFinalUrlWithUtm(baseUrl, utmSource, utmCampaign, utmContent);
         
-        // Создаем трекинговый URL (простой, без UTM)
         var trackingUrl = GenerateTrackingUrl(urlIdentifier);
 
         var trackingLink = new TrackingLink
         {
             Id = Guid.NewGuid(),
             Name = name.Trim(),
-            BaseUrl = finalUrl,  // Сохраняем URL с UTM-параметрами
+            BaseUrl = finalUrl,  
             UrlIdentifier = urlIdentifier,
-            GeneratedUrl = trackingUrl,  // Трекинговый URL (простой)
+            GeneratedUrl = trackingUrl,  
             UtmSource = utmSource?.Trim(),
             UtmCampaign = utmCampaign?.Trim(),
             UtmContent = utmContent?.Trim(),
@@ -131,7 +127,6 @@ public class TrackingLinksService : ITrackingLinksService
 
     public string GenerateFullUrl(string baseUrl, string urlIdentifier, string utmSource, string utmCampaign, string utmContent)
     {
-        // Этот метод теперь создает ПРОСТОЙ трекинговый URL без UTM
         var trackingDomain = _configuration["Tracking:Domain"] ?? "https://track.yourdomain.com";
         return $"{trackingDomain}/click/{urlIdentifier}";
     }

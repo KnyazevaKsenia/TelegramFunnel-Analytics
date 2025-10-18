@@ -60,7 +60,6 @@ public class AccountController : Controller
             {
                 _logger.LogInformation("Создан новый пользователь: {Email}", model.Email);
 
-                // Автоматический вход после регистрации
                 await _signInManager.SignInAsync(user, isPersistent: false);
                 
 
@@ -118,8 +117,7 @@ public class AccountController : Controller
         return View(model);
     }
         
-    [HttpPost]
-    [ValidateAntiForgeryToken]
+    [HttpGet]
     public async Task<IActionResult> Logout()
     {
         await _signInManager.SignOutAsync();

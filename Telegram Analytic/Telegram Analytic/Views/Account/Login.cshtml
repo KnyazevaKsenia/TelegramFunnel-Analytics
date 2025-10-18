@@ -20,7 +20,6 @@
                         
                         <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
 
-                        <!-- Email Field -->
                         <div class="mb-3">
                             <label asp-for="Email" class="form-label fw-semibold">
                                 <i class="fas fa-envelope me-1 text-muted"></i>Email адрес
@@ -30,7 +29,6 @@
                             <span asp-validation-for="Email" class="text-danger small"></span>
                         </div>
 
-                        <!-- Password Field -->
                         <div class="mb-3">
                             <label asp-for="Password" class="form-label fw-semibold">
                                 <i class="fas fa-lock me-1 text-muted"></i>Пароль
@@ -40,7 +38,6 @@
                             <span asp-validation-for="Password" class="text-danger small"></span>
                         </div>
 
-                        <!-- Remember Me -->
                         <div class="mb-3 form-check">
                             <input asp-for="RememberMe" class="form-check-input" />
                             <label asp-for="RememberMe" class="form-check-label">
@@ -48,14 +45,12 @@
                             </label>
                         </div>
 
-                        <!-- Submit Button -->
                         <div class="d-grid gap-2 mb-3">
                             <button type="submit" class="btn btn-primary btn-lg fw-semibold">
                                 <i class="fas fa-sign-in-alt me-2"></i>Войти
                             </button>
                         </div>
 
-                        <!-- Links -->
                         <div class="text-center">
                             <a asp-action="ForgotPassword" class="text-decoration-none small">
                                 <i class="fas fa-key me-1"></i>Забыли пароль?
@@ -64,7 +59,6 @@
                     </form>
                 </div>
 
-                <!-- Registration Link -->
                 <div class="card-footer text-center py-3 bg-light">
                     <p class="mb-0 small text-muted">
                         Еще нет аккаунта? 
@@ -74,7 +68,6 @@
                 </div>
             </div>
 
-            <!-- Demo Info (для разработки) -->
             <div class="mt-4 p-3 bg-light rounded small text-muted">
                 <h6 class="fw-semibold"><i class="fas fa-info-circle me-1"></i>Для тестирования:</h6>
                 <p class="mb-1">Email: test@example.com</p>
@@ -84,41 +77,12 @@
     </div>
 </div>
 
-@* @section Styles { *@
-@*     <style> *@
-@*         .card { *@
-@*             border-radius: 15px; *@
-@*         } *@
-@*          *@
-@*         .form-control { *@
-@*             border-radius: 10px; *@
-@*             border: 1px solid #dee2e6; *@
-@*             transition: all 0.3s ease; *@
-@*         } *@
-@*          *@
-@*         .form-control:focus { *@
-@*             border-color: #0d6efd; *@
-@*             box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25); *@
-@*         } *@
-@*          *@
-@*         .btn-primary { *@
-@*             border-radius: 10px; *@
-@*             padding: 12px; *@
-@*             transition: all 0.3s ease; *@
-@*         } *@
-@*          *@
-@*         .btn-primary:hover { *@
-@*             transform: translateY(-2px); *@
-@*             box-shadow: 0 4px 8px rgba(13, 110, 253, 0.3); *@
-@*         } *@
-@*     </style> *@
-@* } *@
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     
     <script>
-        // Автофокус на поле email при загрузке страницы
         document.addEventListener('DOMContentLoaded', function() {
             const emailInput = document.getElementById('Email');
             if (emailInput) {
@@ -126,7 +90,6 @@
             }
         });
 
-        // Показать/скрыть пароль
         document.addEventListener('DOMContentLoaded', function() {
             const passwordInput = document.getElementById('Password');
             const togglePassword = document.createElement('button');
@@ -147,16 +110,13 @@
             });
         });
 
-        // Автозаполнение demo данных для тестирования
         document.addEventListener('DOMContentLoaded', function() {
-            // Только в development среде
             const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
             
             if (isDevelopment) {
                 const demoEmail = 'test@example.com';
                 const demoPassword = 'Test123!';
                 
-                // Автозаполнение при клике на demo info
                 const demoInfo = document.querySelector('.bg-light.rounded');
                 if (demoInfo) {
                     demoInfo.addEventListener('click', function() {
@@ -167,7 +127,6 @@
                             emailInput.value = demoEmail;
                             passwordInput.value = demoPassword;
                             
-                            // Фокус на кнопку входа
                             const submitBtn = document.querySelector('button[type="submit"]');
                             if (submitBtn) {
                                 submitBtn.focus();

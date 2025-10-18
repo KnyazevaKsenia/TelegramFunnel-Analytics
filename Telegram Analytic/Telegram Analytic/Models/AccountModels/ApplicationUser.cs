@@ -29,7 +29,7 @@ public class ApplicationUser : IdentityUser
     [Display(Name = "Аккаунт активирован")]
     public bool IsActive { get; set; } = true;
 
-    // Навигационные свойства
+   
     public virtual ICollection<Project> Projects { get; set; } = new List<Project>();
 }
 

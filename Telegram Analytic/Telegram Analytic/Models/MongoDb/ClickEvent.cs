@@ -24,7 +24,7 @@ public class ClickEvent
     public string UserAgent { get; set; }
 
     [BsonElement("sessionToken")]
-    public string SessionToken { get; set; } // Связующий токен
+    public string SessionToken { get; set; }
 
     [BsonElement("telegramUserId")]
     [BsonRepresentation(BsonType.Int64)]
@@ -34,7 +34,7 @@ public class ClickEvent
     public bool IsLinkedWithTelegram { get; set; }
 
     [BsonElement("utmSource")]
-    public string UtmSource { get; set; }    // Сохраняем UTM
+    public string UtmSource { get; set; }   
 
     [BsonElement("utmCampaign")]
     public string UtmCampaign { get; set; }

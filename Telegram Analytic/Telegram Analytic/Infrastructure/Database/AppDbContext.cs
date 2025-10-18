@@ -18,7 +18,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         base.OnModelCreating(builder);
 
-        // Конфигурация Project
+        
         builder.Entity<Project>(entity =>
         {
             entity.HasKey(p => p.Id);
@@ -30,14 +30,14 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             entity.Property(p => p.CreatedAt)
                 .HasDefaultValueSql("NOW()");
 
-            // Связь с пользователем
+            
             entity.HasOne(p => p.User)
                 .WithMany(u => u.Projects)
                 .HasForeignKey(p => p.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
         });
 
-        // Конфигурация TrackingLink
+        
         builder.Entity<TrackingLink>(entity =>
         {
             entity.HasKey(t => t.Id);
@@ -55,18 +55,16 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             entity.Property(t => t.CreatedAt)
                 .HasDefaultValueSql("NOW()");
 
-            // Индекс для быстрого поиска по идентификатору
+ 
             entity.HasIndex(t => t.UrlIdentifier)
                 .IsUnique();
 
-            // Связь с проектом
             entity.HasOne(t => t.Project)
                 .WithMany(p => p.TrackingLinks)
                 .HasForeignKey(t => t.ProjectId)
                 .OnDelete(DeleteBehavior.Cascade);
         });
-        
-        // Конфигурация ApplicationUser
+      
         builder.Entity<ApplicationUser>(entity =>
         {
             entity.Property(u => u.FirstName)
