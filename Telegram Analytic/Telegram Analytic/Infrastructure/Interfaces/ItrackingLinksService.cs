@@ -4,8 +4,7 @@ namespace Telegram_Analytic.Infrastructure.Interfaces;
 
 public interface ITrackingLinksService
 {
-    public TrackingLink CreateTrackingLink(string name,
-        string baseUrl,
+    public Task<TrackingLink> CreateTrackingLink(string name,
         Guid projectId,
         string utmSource,
         string utmCampaign,
@@ -18,6 +17,6 @@ public interface ITrackingLinksService
     public string GenerateFullUrl(string baseUrl, string urlIdentifier, string utmSource, string utmCampaign,
         string utmContent);
 
-    public Task<TrackingLink> ProcessClickAsync(string identifier);
+    public Task<TrackingLink?> ProcessClickAsync(string identifier);
 
 }

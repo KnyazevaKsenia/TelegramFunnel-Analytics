@@ -12,6 +12,7 @@ public class ClickController : ControllerBase
     private readonly ITrackingLinksService _trackingService;
     private readonly MongoDbContext _mongoContext;
     private readonly IConfiguration _configuration;
+    private readonly ITgBotService _tgBotService;
     
     public ClickController(ITrackingLinksService trackingService, MongoDbContext mongoContext, IConfiguration configuration)
     {
@@ -21,20 +22,21 @@ public class ClickController : ControllerBase
     }
     
     [HttpGet("{identifier}")]
-    public async Task<IActionResult> TrackClick(string identifier, 
-        [FromQuery] string utm_source, 
-        [FromQuery] string utm_campaign,
-        [FromQuery] string utm_content,
-        [FromQuery] string utm_medium)
+    public async Task<IActionResult> TrackClick(string identifier)
     {
-        var decodedUtmSource = WebUtility.UrlDecode(utm_source); // "умуф"
-        var decodedUtmCampaign = WebUtility.UrlDecode(utm_campaign); // "му"
-        
         var trackingLink = await _trackingService.ProcessClickAsync(identifier);
         if (trackingLink == null) return Redirect(_configuration["Tracking:Domain"]);
         
+        var utmSource = trackingLink.UtmSource;
+        var utmCampaign = trackingLink.UtmCampaign;
+        var utmContent = trackingLink.UtmContent;
+        
+        var decodedUtmSource = WebUtility.UrlDecode(utmSource); 
+        var decodedUtmCampaign = WebUtility.UrlDecode(utmCampaign);
+        var decodedUtmContent = WebUtility.UrlDecode(utmContent);
+        
         var sessionToken = Guid.NewGuid().ToString("N").Substring(0, 12);
-            
+        
         var clickEvent = new ClickEvent
         {
             LinkId = trackingLink.Id,
@@ -44,7 +46,7 @@ public class ClickController : ControllerBase
             SessionToken = sessionToken,
             UtmSource = decodedUtmSource,    
             UtmCampaign = decodedUtmCampaign,
-            UtmContent = utm_content,
+            UtmContent = decodedUtmContent,
             Timestamp = DateTime.UtcNow
         };
         
@@ -52,7 +54,7 @@ public class ClickController : ControllerBase
         
         var botUsername = _configuration["Telegram:BotUsername"] ?? "your_bot";
         var botUrl = $"https://t.me/{botUsername}?start={sessionToken}";
-            
+        
         return Redirect(botUrl);
     }
     

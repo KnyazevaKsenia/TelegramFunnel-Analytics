@@ -5,11 +5,19 @@
 <div class="hero">
     <h1>TelegramFunnel Analytics (TFA)</h1>
     <p>Система сквозной аналитики Telegram-каналов.  
-       Отслеживайте эффективность кампаний и принимайте решения на данных.</p>
-    <div class="mt-4">
-        <a href="/account/register" class="btn btn-light btn-lg me-2"><i class="bi bi-person-plus"></i> Начать сейчас</a>
-        <a href="/account/login" class="btn btn-outline-light btn-lg"><i class="bi bi-box-arrow-in-right"></i> Войти</a>
-    </div>
+        Отслеживайте эффективность кампаний и принимайте решения на данных.</p>
+    @if (User.Identity?.IsAuthenticated ?? false)
+    {
+        
+        <div class="mt-4">
+            <a href="/Projects" class="btn btn-light btn-lg me-2"><i class="bi bi-arrow-up-right-circle"></i> Продолжить работу</a>
+        </div>
+    }
+    else
+    {
+        
+    }
+    
 </div>
 
 <section class="mt-5">

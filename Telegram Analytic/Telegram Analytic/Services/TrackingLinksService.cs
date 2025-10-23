@@ -11,7 +11,7 @@ public class TrackingLinksService : ITrackingLinksService
     private readonly IConfiguration _configuration;
     private readonly ILogger<TrackingLinksService> _logger;
     private readonly ApplicationDbContext _context;
-
+    
     public TrackingLinksService(
         IConfiguration configuration, 
         ILogger<TrackingLinksService> logger,
@@ -21,13 +21,13 @@ public class TrackingLinksService : ITrackingLinksService
         _logger = logger;
         _context = context;
     }
-
-    public async Task<TrackingLink> ProcessClickAsync(string identifier)
+    
+    public async Task<TrackingLink?> ProcessClickAsync(string identifier)
     {
         try
         {
             _logger.LogInformation("Обработка клика по идентификатору: {Identifier}", identifier);
-
+            
             var trackingLink = await _context.TrackingLinks
                 .Include(tl => tl.Project)
                 .FirstOrDefaultAsync(tl => tl.UrlIdentifier == identifier && tl.IsActive);
@@ -37,7 +37,7 @@ public class TrackingLinksService : ITrackingLinksService
                 _logger.LogWarning("Ссылка не найдена или неактивна: {Identifier}", identifier);
                 return null;
             }
-
+            
             trackingLink.ClickCount++;
             trackingLink.LastClickedAt = DateTime.UtcNow;
             await _context.SaveChangesAsync();
@@ -54,25 +54,24 @@ public class TrackingLinksService : ITrackingLinksService
             throw;
         }
     }
-
-    public TrackingLink CreateTrackingLink(
+    
+    public async Task<TrackingLink> CreateTrackingLink(
         string name,
-        string baseUrl,  
         Guid projectId,
         string utmSource,
         string utmCampaign,
         string utmContent)
     {
-        ValidateInputParameters(name, baseUrl, projectId);
-
-        var urlIdentifier = GenerateUrlIdentifier(name);
+        var baseUrl = (await _context.Projects.FindAsync(projectId)).ToString();
         
-        utmCampaign ??= GenerateUtmCampaign(name);
+        ValidateInputParameters(name, projectId);
+        
+        var urlIdentifier = GenerateUrlIdentifier(name);
         
         var finalUrl = BuildFinalUrlWithUtm(baseUrl, utmSource, utmCampaign, utmContent);
         
         var trackingUrl = GenerateTrackingUrl(urlIdentifier);
-
+        
         var trackingLink = new TrackingLink
         {
             Id = Guid.NewGuid(),
@@ -88,7 +87,7 @@ public class TrackingLinksService : ITrackingLinksService
             CreatedAt = DateTime.UtcNow,
             ProjectId = projectId
         };
-
+        
         _logger.LogInformation("Создана трекинг ссылка: {LinkId} для проекта {ProjectId}", 
             trackingLink.Id, projectId);
 
@@ -130,29 +129,23 @@ public class TrackingLinksService : ITrackingLinksService
         var trackingDomain = _configuration["Tracking:Domain"] ?? "https://track.yourdomain.com";
         return $"{trackingDomain}/click/{urlIdentifier}";
     }
-
+    
     #region Private Methods
 
-    private void ValidateInputParameters(string name, string baseUrl, Guid projectId)
+    private void ValidateInputParameters(string name,  Guid projectId)
     {
         if (string.IsNullOrWhiteSpace(name))
             throw new ArgumentException("Название ссылки не может быть пустым", nameof(name));
             
-        if (string.IsNullOrWhiteSpace(baseUrl))
-            throw new ArgumentException("Базовый URL не может быть пустым", nameof(baseUrl));
-            
+        
         if (projectId == Guid.Empty)
             throw new ArgumentException("ID проекта не может быть пустым", nameof(projectId));
-
-        // Проверяем базовый URL без параметров
-        var cleanBaseUrl = baseUrl.Split('?')[0];
-        if (!Uri.IsWellFormedUriString(cleanBaseUrl, UriKind.Absolute))
-            throw new ArgumentException("Некорректный формат базового URL", nameof(baseUrl));
+        
     }
 
     private string GenerateTrackingUrl(string urlIdentifier)
     {
-        // Простой URL трекера без параметров
+        
         var trackingDomain = _configuration["Tracking:Domain"] ?? "https://track.yourdomain.com";
         return $"{trackingDomain}/click/{urlIdentifier}";
     }

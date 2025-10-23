@@ -8,7 +8,7 @@ public class ClickEvent
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
     public string Id { get; set; }
-
+    
     [BsonElement("linkId")]
     [BsonRepresentation(BsonType.String)]
     public Guid LinkId { get; set; }
@@ -26,9 +26,8 @@ public class ClickEvent
     [BsonElement("sessionToken")]
     public string SessionToken { get; set; }
 
-    [BsonElement("telegramUserId")]
-    [BsonRepresentation(BsonType.Int64)]
-    public long? TelegramUserId { get; set; }
+    [BsonElement("telegramUserName")]
+    public string? TelegramUserName { get; set; }
 
     [BsonElement("isLinkedWithTelegram")]
     public bool IsLinkedWithTelegram { get; set; }
@@ -41,10 +40,12 @@ public class ClickEvent
 
     [BsonElement("utmContent")]
     public string UtmContent { get; set; }
-
+    
     [BsonElement("timestamp")]
     [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
     [BsonRepresentation(BsonType.DateTime)]
     public DateTime Timestamp { get; set; } = DateTime.UtcNow;
+    public long User_Id {get; set;}
+    public bool IsSubscribed { get; set; }
 }
 

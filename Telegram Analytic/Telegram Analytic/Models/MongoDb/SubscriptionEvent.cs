@@ -21,7 +21,7 @@ public class SubscriptionEvent
     [BsonElement("sessionToken")]
     [BsonRequired]
     public string SessionToken { get; set; }
-
+    
     [BsonElement("action")]
     [BsonRequired]
     public string Action { get; set; } // "subscribe"

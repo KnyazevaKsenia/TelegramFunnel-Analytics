@@ -6,29 +6,25 @@ C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram A
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Telegram Analytic.runtimeconfig.json
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Telegram Analytic.dll
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Telegram Analytic.pdb
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\Telegram Analytic.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\Telegram Analytic.AssemblyInfoInputs.cache
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\Telegram Analytic.AssemblyInfo.cs
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\Telegram Analytic.csproj.CoreCompileInputs.cache
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\Telegram Analytic.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\Telegram Analytic.RazorAssemblyInfo.cache
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\Telegram Analytic.RazorAssemblyInfo.cs
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\staticwebassets.build.json
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\staticwebassets.development.json
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\staticwebassets\msbuild.Telegram Analytic.Microsoft.AspNetCore.StaticWebAssets.props
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\staticwebassets\msbuild.build.Telegram Analytic.props
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.Telegram Analytic.props
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.Telegram Analytic.props
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\staticwebassets.pack.json
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\scopedcss\bundle\Telegram Analytic.styles.css
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\scopedcss\projectbundle\Telegram Analytic.bundle.scp.css
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\Telegram Analytic.dll
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\refint\Telegram Analytic.dll
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\Telegram Analytic.pdb
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\Telegram Analytic.genruntimeconfig.cache
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\ref\Telegram Analytic.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\DnsClient.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Google.Api.CommonProtos.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Google.Api.Gax.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Google.Api.Gax.Grpc.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Google.Apis.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Google.Apis.Auth.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Google.Apis.Core.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Google.Cloud.Firestore.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Google.Cloud.Firestore.V1.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Google.Cloud.Location.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Google.LongRunning.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Google.Protobuf.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Grpc.Auth.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Grpc.Core.Api.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Grpc.Net.Client.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Grpc.Net.Common.dll
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Humanizer.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.UI.dll
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Microsoft.Build.Locator.dll
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
@@ -51,9 +47,14 @@ C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram A
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Microsoft.Extensions.Primitives.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\MongoDB.Bson.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\MongoDB.Driver.dll
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Mono.TextTemplating.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Newtonsoft.Json.dll
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Npgsql.dll
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\SharpCompress.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Snappier.dll
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\System.CodeDom.dll
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\System.Composition.AttributedModel.dll
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\System.Composition.Convention.dll
@@ -62,8 +63,12 @@ C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram A
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\System.Composition.TypedParts.dll
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\System.Diagnostics.DiagnosticSource.dll
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\System.IO.Pipelines.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\System.Linq.Async.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\System.Management.dll
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\System.Text.Encodings.Web.dll
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\System.Text.Json.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Telegram.Bot.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\ZstdSharp.dll
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
@@ -129,35 +134,52 @@ C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram A
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Management.dll
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\Telegram Analytic.csproj.AssemblyReference.cache
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\Telegram Analytic.sourcelink.json
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\Telegram.531B7B04.Up2Date
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\DnsClient.dll
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Google.Api.CommonProtos.dll
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Google.Api.Gax.dll
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Google.Api.Gax.Grpc.dll
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Google.Apis.dll
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Google.Apis.Auth.dll
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Google.Apis.Core.dll
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Google.Cloud.Firestore.dll
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Google.Cloud.Firestore.V1.dll
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Google.Cloud.Location.dll
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Google.LongRunning.dll
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Google.Protobuf.dll
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Grpc.Auth.dll
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Grpc.Core.Api.dll
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Grpc.Net.Client.dll
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Grpc.Net.Common.dll
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\MongoDB.Bson.dll
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\MongoDB.Driver.dll
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Newtonsoft.Json.dll
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\SharpCompress.dll
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Snappier.dll
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\System.Linq.Async.dll
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\System.Management.dll
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\ZstdSharp.dll
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Management.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\Telegram Analytic.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\Telegram Analytic.AssemblyInfoInputs.cache
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\Telegram Analytic.AssemblyInfo.cs
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\Telegram Analytic.csproj.CoreCompileInputs.cache
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\Telegram Analytic.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
-C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.UI.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\Telegram Analytic.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\Telegram Analytic.RazorAssemblyInfo.cache
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\Telegram Analytic.RazorAssemblyInfo.cs
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\Telegram Analytic.sourcelink.json
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\staticwebassets\msbuild.Telegram Analytic.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\staticwebassets\msbuild.build.Telegram Analytic.props
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.Telegram Analytic.props
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.Telegram Analytic.props
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\scopedcss\bundle\Telegram Analytic.styles.css
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\scopedcss\projectbundle\Telegram Analytic.bundle.scp.css
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\Telegram.531B7B04.Up2Date
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\Telegram Analytic.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\refint\Telegram Analytic.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\Telegram Analytic.pdb
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\Telegram Analytic.genruntimeconfig.cache
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\obj\Debug\net8.0\ref\Telegram Analytic.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Dapper.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Hangfire.AspNetCore.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Hangfire.Core.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Hangfire.Mongo.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Hangfire.NetCore.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Hangfire.PostgreSql.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\Hangfire.SqlServer.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\ca\Hangfire.Core.resources.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\de\Hangfire.Core.resources.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\es\Hangfire.Core.resources.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\fa\Hangfire.Core.resources.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\fr\Hangfire.Core.resources.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\nb\Hangfire.Core.resources.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\nl\Hangfire.Core.resources.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\pt-BR\Hangfire.Core.resources.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\pt-PT\Hangfire.Core.resources.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\pt\Hangfire.Core.resources.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\sv\Hangfire.Core.resources.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\tr-TR\Hangfire.Core.resources.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\zh-TW\Hangfire.Core.resources.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Analytics\Telegram Analytic\Telegram Analytic\bin\Debug\net8.0\zh\Hangfire.Core.resources.dll

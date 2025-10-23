@@ -9,11 +9,12 @@ public class ProjectController : Controller
 {
     private readonly ApplicationDbContext _context;
     private readonly ITrackingLinksService _linkService;
-    private const int MAX_LINKS_PER_PROJECT = 20;
-    
-    public ProjectController(ApplicationDbContext context, ITrackingLinksService linkService)
+    private const int MaxLinksPerProject = 20;
+    private readonly ITgBotService _tgBotService;
+    public ProjectController(ApplicationDbContext context, ITrackingLinksService linkService, ITgBotService tgBotService)
     {
         _context = context;
+        _tgBotService = tgBotService;
         _linkService = linkService;
     }
     
@@ -25,7 +26,7 @@ public class ProjectController : Controller
             {
                 return BadRequest("Неверный формат ID проекта");
             }
-            
+        
             var project = await _context.Projects
                 .Include(p => p.TrackingLinks)
                 .FirstOrDefaultAsync(p => p.Id == id);
@@ -35,12 +36,20 @@ public class ProjectController : Controller
                 return NotFound();
             }
             
-            ViewBag.MaxLinksPerProject = MAX_LINKS_PER_PROJECT;
-            ViewBag.CurrentLinksCount = project.TrackingLinks.Count;
+            var isBotAdmin = false;
+            if (!string.IsNullOrEmpty(project.TelegramChanelUrl))
+            {
+                isBotAdmin = await _tgBotService.IsBotAdmin(project.TelegramChanelUrl);
+            }
             
+            ViewBag.MaxLinksPerProject = MaxLinksPerProject;
+            ViewBag.CurrentLinksCount = project.TrackingLinks.Count;
+            ViewBag.IsBotAdmin = isBotAdmin;
+            ViewBag.TelegramChanelUrl = project.TelegramChanelUrl;
+        
             return View("ProjectDetails", project);
         }
-        
+    
         return View("Projects");
     }
     
@@ -63,18 +72,18 @@ public class ProjectController : Controller
         if (project == null)
             return Json(new { success = false, error = "Проект не найден" });
 
-        if (project.TrackingLinks.Count >= MAX_LINKS_PER_PROJECT)
+        if (project.TrackingLinks.Count >= MaxLinksPerProject)
         {
             return Json(new { 
                 success = false, 
-                error = $"Превышено максимальное количество ссылок ({MAX_LINKS_PER_PROJECT}) для проекта" 
+                error = $"Превышено максимальное количество ссылок ({MaxLinksPerProject}) для проекта" 
             });
         }
-
-        var link = _linkService.CreateTrackingLink(
-            request.Name, request.BaseUrl, projectId,
+        
+        var link = await _linkService.CreateTrackingLink(
+            request.Name, projectId,
             request.UtmContent, request.UtmCampaign, request.UtmSource);
-
+        
         await _context.TrackingLinks.AddAsync(link);
         await _context.SaveChangesAsync();
         
@@ -89,7 +98,7 @@ public class ProjectController : Controller
                 isActive = link.IsActive
             },
             currentCount = project.TrackingLinks.Count + 1,
-            maxCount = MAX_LINKS_PER_PROJECT
+            maxCount = MaxLinksPerProject
         });
     }
     catch (Exception ex)
@@ -97,9 +106,6 @@ public class ProjectController : Controller
         return Json(new { success = false, error = ex.Message });
     }
 }
-
-
-
     
     [HttpPost]
     public async Task<IActionResult> DeleteTrackingLink(Guid linkId)
@@ -120,7 +126,7 @@ public class ProjectController : Controller
             return Json(new { 
                 success = true,
                 currentCount = project?.TrackingLinks.Count ?? 0,
-                maxCount = MAX_LINKS_PER_PROJECT
+                maxCount = MaxLinksPerProject
             });
         }
         catch (Exception ex)

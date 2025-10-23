@@ -45,23 +45,71 @@ public class ProjectsController: Controller
     {
         return View();
     }
+
+
+    [HttpGet]
+    
+    [HttpPost]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        try
+        {
+            var project = await _context.Projects.FindAsync(id);
+            if (project == null)
+            {
+                return NotFound();
+            }
+        
+            _context.Projects.Remove(project);
+            await _context.SaveChangesAsync();
+        
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "Ошибка при удалении проекта");
+        }
+    }
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(EditProjectModel model )
+    {
+        if (!ModelState.IsValid)
+            return RedirectToAction(nameof(Index));
+
+        var project = await _context.Projects.FindAsync(model.Id);
+        if (project == null)
+            return NotFound();
+        
+        project.Name = model.Name;
+        project.UpdatedAt = DateTime.UtcNow;
+        
+        _context.Update(project);
+        await _context.SaveChangesAsync();
+        
+        TempData["Success"] = "Проект успешно обновлён!";
+        return RedirectToAction(nameof(Index));
+    }
     
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(CreateProjectModel model)
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        
         if (!ModelState.IsValid)
         {
-            return View(model);
+           
+            TempData["Error"] = "Пожалуйста, исправьте ошибки в форме";
+            return RedirectToAction(nameof(Index));
         }
         
         if (userId != null && ProjectNameExists(model.Name, userId))
         {
-            ModelState.AddModelError("Name", "Проект с таким названием уже существует");
-            return View(model);
+            TempData["Error"] = "Проект с таким названием уже существует";
+            return RedirectToAction(nameof(Index));
         }
-        
+    
         try
         {
             if (string.IsNullOrEmpty(userId))
@@ -73,7 +121,7 @@ public class ProjectsController: Controller
             {
                 Id = Guid.NewGuid(),
                 Name = model.Name,
-                TelegramChatId = model.TelegramChatId,
+                TelegramChanelUrl = model.TelegramChanelUrl,
                 IsActive = true,
                 CreatedAt = DateTime.UtcNow, 
                 UserId = userId
@@ -81,17 +129,17 @@ public class ProjectsController: Controller
 
             await _context.Projects.AddAsync(newProject);
             await _context.SaveChangesAsync(); 
-            
+        
+            TempData["Success"] = "Проект успешно создан";
             return RedirectToAction(nameof(Index));
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Ошибка при создании проекта");
-            ModelState.AddModelError("", "Произошла ошибка при создании проекта");
-            return View(model);
+            TempData["Error"] = "Произошла ошибка при создании проекта";
+            return RedirectToAction(nameof(Index));
         }
     }
-    
     private bool ProjectNameExists(string name, string userId)
     {
         return _context.Projects.Any(p => p.Name == name && p.UserId == userId);
