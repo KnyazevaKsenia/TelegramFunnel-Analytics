@@ -1,0 +1,330 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model IEnumerable<Project>
+
+@{
+    ViewData["Title"] = "Мои проекты";
+    Layout = "_Layout";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">@ViewData["Title"]</h2>
+    <button class="btn btn-success rounded-3" data-bs-toggle="modal" data-bs-target="#createProjectModal">
+        <i class="bi bi-plus-circle"></i> Создать проект
+    </button>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info rounded-3">
+        <h4>У вас пока нет проектов</h4>
+        <p>Создайте первый проект, чтобы начать отслеживать статистику переходов.</p>
+        <button class="btn btn-primary rounded-3" data-bs-toggle="modal" data-bs-target="#createProjectModal">
+            Создать проект
+        </button>
+    </div>
+}
+else
+{
+    <div class="row">
+        @foreach (var project in Model)
+        {
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card project-card h-100 rounded-3">
+                    <div class="card-header d-flex justify-content-between align-items-center rounded-top-3">
+                        <h5 class="mb-0 text-dark">@project.Name</h5>
+                        <span class="badge rounded-pill @(project.IsActive ? "bg-success" : "bg-secondary")">
+                            @(project.IsActive ? "Активен" : "Неактивен")
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            <strong>Username канала:</strong> @(project.TelegramChanelUrl ?? "Не указан")
+                        </p>
+                        <p class="card-text">
+                            <strong>Создан:</strong> @project.CreatedAt.ToString("dd.MM.yyyy HH:mm")
+                        </p>
+                    </div>
+                    <div class="card-footer bg-transparent rounded-bottom-3">
+                        <div class="btn-group w-100">
+                            <a asp-controller="Project"
+                               asp-action="Index"
+                               asp-route-projectId="@project.Id"
+                               class="btn btn-outline-info btn-sm rounded-2">
+                                Подробности
+                            </a>
+                            <button class="btn btn-outline-primary btn-sm rounded-2 edit-btn"
+                                    data-id="@project.Id"
+                                    data-name="@project.Name"
+                                    data-token="@project.TelegramChanelUrl"
+                                    data-chatid="@project.TelegramChanelUrl"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#editProjectModal">
+                                Редактировать
+                            </button>
+                            <button type="button"
+                                    class="btn btn-outline-danger btn-sm rounded-2 delete-btn"
+                                    data-project-id="@project.Id"
+                                    data-project-name="@project.Name">
+                                Удалить
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Подтверждение удаления</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Вы точно хотите удалить этот проект?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Удалить</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="createProjectModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4">
+            <div class="modal-header text-white" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <h5 class="modal-title"><i class="bi bi-kanban"></i> Новый проект</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form asp-action="Create" method="post" id="createProjectForm">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                    <div class="form-group mb-3">
+                        <label class="fw-bold">Название проекта *</label>
+                        <input name="Name" class="form-control" placeholder="Введите название проекта" required/>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="fw-bold">Введите ссылку на телеграм-канал</label>
+                            <input name="TelegramChanelUrl"
+                                   class="form-control"
+                                   id="telegramUrlInput"
+                                   placeholder="https://t.me/username"
+                                   pattern="(https:\/\/t\.me\/[a-zA-Z0-9_]{5,32}|@@[a-zA-Z0-9_]{5,32})"
+                                   title="Введите корректную ссылку Telegram (https://t.me/username)"/>
+                            <div class="invalid-feedback" id="urlError">
+                                Пожалуйста, введите корректную ссылку на Telegram-канал
+                            </div>
+                            <small class="form-text text-muted">
+                                Формат: https://t.me/username
+                            </small>
+                        </div>
+                    </div>
+                    
+                    <div class="text-end mt-4">
+                        <button type="submit" class="btn btn-primary px-4">
+                            <i class="bi bi-plus-circle"></i> Создать
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="editProjectModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4">
+            <div class="modal-header text-white" style="background: linear-gradient(135deg, #4e54c8 0%, #8f94fb 100%);">
+                <h5 class="modal-title"><i class="bi bi-pencil-square"></i> Редактировать проект</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form asp-action="Edit" method="post" id="editProjectForm">
+                    <input type="hidden" name="Id" id="editProjectId"/>
+                    <div class="form-group mb-3">
+                        <label class="fw-bold">Название проекта *</label>
+                        <input name="Name" id="editProjectName" class="form-control" required/>
+                    </div>
+                    <div class="text-end mt-4">
+                        <button type="submit" class="btn btn-primary px-4">
+                            <i class="bi bi-save"></i> Сохранить изменения
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style> 
+    .project-card 
+    { 
+        background-color: #ffffff !important; 
+        border: 1px solid #e3e6f0; 
+        transition: all 0.3s ease; 
+        box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1); 
+        border-radius: 1rem !important; overflow: hidden; 
+    } 
+    .project-card:hover 
+    { 
+        transform: translateY(-5px); 
+        box-shadow: 0 0.5rem 2rem 0 rgba(58, 59, 69, 0.2); 
+    } 
+    .project-card .card-header 
+    { 
+        background-color: #f8f9fc; 
+        border-bottom: 1px solid #e3e6f0; 
+        padding: 1rem 1.25rem; 
+        border-radius: 1rem 1rem 0 0 !important; 
+    } 
+    .project-card .card-body 
+    { 
+        padding: 1.25rem; 
+        color: #5a5c69; 
+    } 
+    .project-card .card-footer 
+    { 
+        border-top: 1px solid #e3e6f0; 
+        padding: 1rem 1.25rem; 
+        border-radius: 0 0 1rem 1rem !important; 
+    } 
+    .project-card .btn-group .btn 
+    { 
+        border-radius: 0.75rem !important; 
+        margin: 0 2px; flex: 1; 
+    } 
+    .project-card .btn-group 
+    { 
+        gap: 0.25rem; 
+    }  
+    .alert 
+    { 
+        border-radius: 1rem !important;
+        border: none;
+        box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+    } 
+    .btn 
+    { 
+        border-radius: 0.75rem !important;
+    } 
+    .badge.rounded-pill 
+    { 
+        border-radius: 50rem !important;
+    } 
+    @@media (max-width: 768px) 
+    { 
+        .project-card .btn-group 
+        { 
+            flex-direction: column; 
+        } 
+        .project-card .btn-group .btn 
+        { 
+            margin: 2px 0;
+            border-radius: 0.5rem !important;
+        } 
+        .project-card 
+        { 
+            border-radius: 0.75rem !important;
+        } 
+        .project-card .card-header, .project-card .card-footer 
+        { 
+            border-radius: 0.75rem 0.75rem 0 0 !important;
+        } 
+        .project-card .card-footer 
+        { 
+            border-radius: 0 0 0.75rem 0.75rem !important;
+        } 
+    } 
+</style>
+
+@section Scripts {
+    <script>
+        let projectToDelete = null;
+
+        document.querySelectorAll('.delete-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const projectId = this.getAttribute('data-project-id');
+                const projectName = this.getAttribute('data-project-name');
+
+                projectToDelete = projectId;
+
+                document.querySelector('.modal-body p').textContent =
+                    `Вы точно хотите удалить проект "${projectName}"?`;
+
+        
+                const modal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
+                modal.show();
+            });
+        });
+
+     
+        document.getElementById('confirmDeleteBtn').addEventListener('click', async function() {
+            if (!projectToDelete) return;
+
+            try {
+                const response = await fetch(`/Projects/Delete/${projectToDelete}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                if (response.ok) {
+                    
+                    const deletedElement = document.querySelector(`[data-project-id="${projectToDelete}"]`);
+                    if (deletedElement) {
+                        
+                        const row = deletedElement.closest('tr') || deletedElement.closest('.project-item');
+                        if (row) {
+                            row.remove();
+                        }
+                    }
+
+                    
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('deleteConfirmModal'));
+                    modal.hide();
+
+                
+                } else {
+                    throw new Error('Ошибка при удалении');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            
+            } finally {
+                projectToDelete = null;
+            }
+        });
+
+    
+       
+        document.querySelectorAll('.edit-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.getElementById('editProjectId').value = btn.dataset.id;
+                document.getElementById('editProjectName').value = btn.dataset.name;
+                document.getElementById('editTelegramBotToken').value = btn.dataset.token || '';
+                document.getElementById('editTelegramChatId').value = btn.dataset.chatid || '';
+            });
+        });
+
+       
+        ['#createProjectForm', '#editProjectForm'].forEach(formId => {
+            const form = document.querySelector(formId);
+            if (form) {
+                form.addEventListener('submit', (e) => {
+                    const btn = form.querySelector('button[type="submit"]');
+                    btn.disabled = true;
+                    btn.innerHTML = '<i class="bi bi-hourglass-split"></i> Сохранение...';
+                });
+            }
+        });
+    </script>
+}

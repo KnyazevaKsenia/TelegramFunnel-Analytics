@@ -1,0 +1,17 @@
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\Projects\StatisticLibrary\obj\Debug\net8.0\StatisticLibrary.csproj.AssemblyReference.cache
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\Projects\StatisticLibrary\obj\Debug\net8.0\StatisticLibrary.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\Projects\StatisticLibrary\obj\Debug\net8.0\StatisticLibrary.AssemblyInfoInputs.cache
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\Projects\StatisticLibrary\obj\Debug\net8.0\StatisticLibrary.AssemblyInfo.cs
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\Projects\StatisticLibrary\obj\Debug\net8.0\StatisticLibrary.csproj.CoreCompileInputs.cache
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\Projects\StatisticLibrary\bin\Debug\net8.0\StatisticLibrary.deps.json
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\Projects\StatisticLibrary\bin\Debug\net8.0\StatisticLibrary.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\Projects\StatisticLibrary\bin\Debug\net8.0\StatisticLibrary.pdb
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\Projects\StatisticLibrary\bin\Debug\net8.0\StatisticLibrary.xml
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\Projects\StatisticLibrary\bin\Debug\net8.0\CommonMongoModels.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\Projects\StatisticLibrary\bin\Debug\net8.0\CommonMongoModels.pdb
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\Projects\StatisticLibrary\obj\Debug\net8.0\Statisti.88E76CB5.Up2Date
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\Projects\StatisticLibrary\obj\Debug\net8.0\StatisticLibrary.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\Projects\StatisticLibrary\obj\Debug\net8.0\refint\StatisticLibrary.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\Projects\StatisticLibrary\obj\Debug\net8.0\StatisticLibrary.xml
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\Projects\StatisticLibrary\obj\Debug\net8.0\StatisticLibrary.pdb
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\Projects\StatisticLibrary\obj\Debug\net8.0\ref\StatisticLibrary.dll

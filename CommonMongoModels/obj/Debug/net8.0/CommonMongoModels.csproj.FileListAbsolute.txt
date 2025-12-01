@@ -1,0 +1,12 @@
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\CommonMongoModels\obj\Debug\net8.0\CommonMongoModels.csproj.AssemblyReference.cache
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\CommonMongoModels\obj\Debug\net8.0\CommonMongoModels.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\CommonMongoModels\obj\Debug\net8.0\CommonMongoModels.AssemblyInfoInputs.cache
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\CommonMongoModels\obj\Debug\net8.0\CommonMongoModels.AssemblyInfo.cs
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\CommonMongoModels\obj\Debug\net8.0\CommonMongoModels.csproj.CoreCompileInputs.cache
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\CommonMongoModels\bin\Debug\net8.0\CommonMongoModels.deps.json
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\CommonMongoModels\bin\Debug\net8.0\CommonMongoModels.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\CommonMongoModels\bin\Debug\net8.0\CommonMongoModels.pdb
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\CommonMongoModels\obj\Debug\net8.0\CommonMongoModels.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\CommonMongoModels\obj\Debug\net8.0\refint\CommonMongoModels.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\CommonMongoModels\obj\Debug\net8.0\CommonMongoModels.pdb
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\CommonMongoModels\obj\Debug\net8.0\ref\CommonMongoModels.dll

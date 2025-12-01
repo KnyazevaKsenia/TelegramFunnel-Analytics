@@ -1,0 +1,74 @@
+﻿@{
+    ViewData["Title"] = "Главная";
+}
+
+<div class="hero">
+    <h1>TelegramFunnel Analytics (TFA)</h1>
+    <p>Система сквозной аналитики Telegram-каналов.  
+        Отслеживайте эффективность кампаний и принимайте решения на данных.</p>
+    @if (User.Identity?.IsAuthenticated ?? false)
+    {
+        
+        <div class="mt-4">
+            <a href="/Projects" class="btn btn-light btn-lg me-2"><i class="bi bi-arrow-up-right-circle"></i> Продолжить работу</a>
+        </div>
+    }
+    else
+    {
+        
+    }
+    
+</div>
+
+<section class="mt-5">
+    <h2 class="text-center mb-4 fw-bold">Возможности системы</h2>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card p-4 text-center h-100">
+                <i class="bi bi-link-45deg display-5 text-primary mb-3"></i>
+                <h5>Модуль 1: Базовое ядро и ссылки</h5>
+                <p class="text-muted mb-0">Генерация до 20 трекинговых ссылок, базовая авторизация и фиксированные поля для кампаний (источник, кампания, контент).</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card p-4 text-center h-100">
+                <i class="bi bi-bar-chart-line display-5 text-primary mb-3"></i>
+                <h5>Модуль 2: Основная аналитика</h5>
+                <p class="text-muted mb-0">Клики и подписки, CTR и ROI. Всё в одном месте — просто, наглядно и эффективно.</p>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card p-4 text-center h-100">
+                <i class="bi bi-file-earmark-bar-graph display-5 text-primary mb-3"></i>
+                <h5>Модуль 3: Отчетность и мониторинг</h5>
+                <p class="text-muted mb-0">Готовые Excel/PDF-отчеты и фоновая обработка данных.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="mt-5 mb-5">
+    <h2 class="text-center mb-4 fw-bold">Почему TelegramFunnel Analytics?</h2>
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="card p-4">
+                <h5><i class="bi bi-clock-history text-primary"></i> Быстрый старт за 15 минут</h5>
+                <p class="text-muted">Подключите свой канал, создайте ссылки и начните собирать аналитику сразу после регистрации.</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card p-4" >
+                <h5><i class="bi bi-graph-up text-primary"></i> Прозрачные метрики эффективности</h5>
+                <p class="text-muted">Контролируйте источники трафика и реальную отдачу от каждой кампании.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="text-center mt-5">
+    <a href="/account/register" class="btn btn-primary btn-lg px-5">
+        <i class="bi bi-rocket-takeoff"></i> Попробовать бесплатно
+    </a>
+</div>

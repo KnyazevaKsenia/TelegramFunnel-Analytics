@@ -1,0 +1,135 @@
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc;
+using Telegram_Analytic.Infrastructure.Database;
+using Telegram_Analytic.Models;
+using Telegram_Analytic.Models.ProjectModels;
+
+namespace Telegram_Analytic.Controllers;
+
+public class ProjectsController: Controller
+{
+    private readonly ILogger<ProjectsController> _logger;
+    private readonly ApplicationDbContext _context;
+    
+    public ProjectsController(
+        ILogger<ProjectsController> logger, ApplicationDbContext context)
+    {
+        _logger = logger;
+        _context = context;
+    }
+    
+    public IActionResult Index()
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (string.IsNullOrEmpty(userId))
+        {
+            return RedirectToAction("Login", "Account");
+        }
+        
+        var userProjects = _context.Projects
+            .Where(p => p.UserId == userId)
+            .ToList();
+    
+        return View(userProjects);
+    }
+    
+    
+
+    [HttpGet]
+    
+    [HttpPost]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        try
+        {
+            var project = await _context.Projects.FindAsync(id);
+            if (project == null)
+            {
+                return NotFound();
+            }
+        
+            _context.Projects.Remove(project);
+            await _context.SaveChangesAsync();
+        
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "Ошибка при удалении проекта");
+        }
+    }
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(EditProjectModel model )
+    {
+        if (!ModelState.IsValid)
+            return RedirectToAction(nameof(Index));
+
+        var project = await _context.Projects.FindAsync(model.Id);
+        if (project == null)
+            return NotFound();
+        
+        project.Name = model.Name;
+        project.UpdatedAt = DateTime.UtcNow;
+        
+        _context.Update(project);
+        await _context.SaveChangesAsync();
+        
+        TempData["Success"] = "Проект успешно обновлён!";
+        return RedirectToAction(nameof(Index));
+    }
+    
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create(CreateProjectModel model)
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        
+        if (!ModelState.IsValid)
+        {
+           
+            TempData["Error"] = "Пожалуйста, исправьте ошибки в форме";
+            return RedirectToAction(nameof(Index));
+        }
+        
+        if (userId != null && ProjectNameExists(model.Name, userId))
+        {
+            TempData["Error"] = "Проект с таким названием уже существует";
+            return RedirectToAction(nameof(Index));
+        }
+    
+        try
+        {
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Challenge();
+            }
+            
+            Project newProject = new Project
+            {
+                Id = Guid.NewGuid(),
+                Name = model.Name,
+                TelegramChanelUrl = model.TelegramChanelUrl,
+                IsActive = true,
+                CreatedAt = DateTime.UtcNow, 
+                UserId = userId
+            };
+
+            await _context.Projects.AddAsync(newProject);
+            await _context.SaveChangesAsync(); 
+        
+            TempData["Success"] = "Проект успешно создан";
+            return RedirectToAction(nameof(Index));
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Ошибка при создании проекта");
+            TempData["Error"] = "Произошла ошибка при создании проекта";
+            return RedirectToAction(nameof(Index));
+        }
+    }
+    private bool ProjectNameExists(string name, string userId)
+    {
+        return _context.Projects.Any(p => p.Name == name && p.UserId == userId);
+    }
+}

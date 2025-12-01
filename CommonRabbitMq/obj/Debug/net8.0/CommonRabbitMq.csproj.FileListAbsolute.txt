@@ -1,0 +1,15 @@
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\CommonRabbitMq\obj\Debug\net8.0\CommonRabbitMq.csproj.AssemblyReference.cache
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\CommonRabbitMq\obj\Debug\net8.0\CommonRabbitMq.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\CommonRabbitMq\obj\Debug\net8.0\CommonRabbitMq.AssemblyInfoInputs.cache
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\CommonRabbitMq\obj\Debug\net8.0\CommonRabbitMq.AssemblyInfo.cs
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\CommonRabbitMq\obj\Debug\net8.0\CommonRabbitMq.csproj.CoreCompileInputs.cache
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\CommonRabbitMq\bin\Debug\net8.0\CommonRabbitMq.deps.json
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\CommonRabbitMq\bin\Debug\net8.0\CommonRabbitMq.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\CommonRabbitMq\bin\Debug\net8.0\CommonRabbitMq.pdb
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\CommonRabbitMq\bin\Debug\net8.0\CommonMongoModels.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\CommonRabbitMq\bin\Debug\net8.0\CommonMongoModels.pdb
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\CommonRabbitMq\obj\Debug\net8.0\CommonRa.A7072C97.Up2Date
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\CommonRabbitMq\obj\Debug\net8.0\CommonRabbitMq.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\CommonRabbitMq\obj\Debug\net8.0\refint\CommonRabbitMq.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\CommonRabbitMq\obj\Debug\net8.0\CommonRabbitMq.pdb
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\CommonRabbitMq\obj\Debug\net8.0\ref\CommonRabbitMq.dll
