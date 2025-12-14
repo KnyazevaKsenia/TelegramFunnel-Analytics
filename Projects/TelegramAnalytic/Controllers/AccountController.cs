@@ -1,4 +1,6 @@
-﻿using Telegram_Analytic.Models;
+﻿using System.Security.Claims;
+using Telegram_Analytic.Models;
+using Telegram_Analytic.Models.AccountModels;
 
 namespace Telegram_Analytic.Controllers;
 
@@ -124,6 +126,7 @@ public class AccountController : Controller
         _logger.LogInformation("Пользователь вышел из системы");
         return RedirectToAction("Index", "Home");
     }
+    
     
     private IActionResult RedirectToLocal(string returnUrl)
     {

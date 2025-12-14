@@ -1,24 +1,23 @@
-﻿namespace Telegram_Analytic.Models;
-
-
+﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations;
+
+namespace Telegram_Analytic.Models.AccountModels;
 
 public class ApplicationUser : IdentityUser
 {
     [Required]
     [Display(Name = "Имя")]
     [StringLength(50, ErrorMessage = "Имя не может превышать 50 символов")]
-    public string FirstName { get; set; }
+    public required string FirstName { get; set; }
 
     [Required]
     [Display(Name = "Фамилия")]
     [StringLength(50, ErrorMessage = "Фамилия не может превышать 50 символов")]
-    public string LastName { get; set; }
+    public string? LastName { get; set; }
 
     [Display(Name = "Компания/Бренд")]
     [StringLength(100, ErrorMessage = "Название компании не может превышать 100 символов")]
-    public string Company { get; set; }
+    public string? Company { get; set; }
         
     [Display(Name = "Дата регистрации")]
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;

@@ -1,8 +1,5 @@
 using CommonMongoModels;
 using CommonRabbitMq;
-using Hangfire;
-using Hangfire.Mongo;
-using Hangfire.PostgreSql;
 using Microsoft.EntityFrameworkCore;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
@@ -10,11 +7,12 @@ using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver; 
 using StatisticLibrary.Interfaces;
 using StatisticLibrary.Services;
+using Telegram_Analytic.BuilderExtensions;
 using Telegram_Analytic.Infrastructure.AutoMapperProfiles;
 using Telegram_Analytic.Infrastructure.Database;
-using Telegram_Analytic.Models;
 using Telegram_Analytic.Services;
 using Telegram_Analytic.Infrastructure.Interfaces;
+using Telegram_Analytic.Models.AccountModels;
 using Telegram.Bot;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -50,16 +48,11 @@ builder.Services.AddScoped<IMongoCollection<ClickEvent>>(serviceProvider =>
     return database.GetCollection<ClickEvent>("clicks"); 
 });
 
-// HANGFIRE
-builder.Services.AddHangfire(config => 
-    config.UseMongoStorage(builder.Configuration["MongoDb:ConnectionString"], "hangfire"));
-builder.Services.AddHangfireServer();
-
-// Регистрация subscription tracker
-builder.Services.AddScoped<ISubscriptionTracker, SubscriptionTrackingService>();
-builder.Services.AddScoped<SubscriptionTrackingService>();
+builder.Services.AddProjectHangfire(builder.Configuration);
 
 // SERVICES
+builder.Services.AddScoped<ISubscriptionTracker, SubscriptionTrackingService>();
+builder.Services.AddScoped<SubscriptionTrackingService>();
 builder.Services.AddSingleton<MongoDbContext>(); 
 builder.Services.AddScoped<ITrackingLinksService, TrackingLinksService>();
 builder.Services.AddScoped<ITgBotService, TgBotService>();
@@ -90,13 +83,6 @@ builder.Services.AddSingleton<ITelegramBotClient>(provider =>
 builder.Services.Configure<RabbitMqSettings>(
     builder.Configuration.GetSection("RabbitMQ"));
 
-//HANGFIRE 
-builder.Services.AddHangfire((provider, config) =>
-{
-    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-    config.UsePostgreSqlStorage(options => 
-        options.UseNpgsqlConnection(connectionString));
-});
 
 // IDENTITY
 builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
@@ -128,7 +114,10 @@ if (!app.Environment.IsDevelopment())
 
 app.UseStaticFiles();
 app.UseRouting();
+
+app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapControllerRoute(
     name: "default",

@@ -68,4 +68,12 @@ public class MongoClickService : IMongoClickService
         return result.ToDictionary(x => x.LinkId, x => x.Count);
     }
     
+    
+    public async Task<bool> DeleteLinkClicks(Guid linkId)
+    {
+        var filter = Builders<ClickEvent>.Filter.Eq(click => click.LinkId, linkId);
+        return await _clicksCollection.DeleteManyAsync(filter) is not null;
+        
+    }
+    
 }

@@ -174,3 +174,5 @@ C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\Projects\TelegramAnalytic\obj
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\Projects\TelegramAnalytic\obj\Debug\net8.0\Telegram Analytic.pdb
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\Projects\TelegramAnalytic\obj\Debug\net8.0\Telegram Analytic.genruntimeconfig.cache
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\Projects\TelegramAnalytic\obj\Debug\net8.0\ref\Telegram Analytic.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\Projects\TelegramAnalytic\obj\Debug\net8.0\Telegram Analytic.sourcelink.json
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\Projects\TelegramAnalytic\bin\Debug\net8.0\Microsoft.Extensions.Configuration.dll

@@ -7,11 +7,11 @@ public class UserSession
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
-    public string Id { get; set; }
+    public required string Id { get; set; }
     
     [BsonElement("sessionToken")]
     [BsonRequired]
-    public string SessionToken { get; set; }
+    public string? SessionToken { get; set; }
 
     [BsonElement("linkId")]
     [BsonRequired]
@@ -30,7 +30,7 @@ public class UserSession
 
     [BsonElement("telegramUsername")]
     [BsonIgnoreIfNull]
-    public string TelegramUsername { get; set; }
+    public string? TelegramUsername { get; set; }
 
     [BsonElement("createdAt")]
     [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]

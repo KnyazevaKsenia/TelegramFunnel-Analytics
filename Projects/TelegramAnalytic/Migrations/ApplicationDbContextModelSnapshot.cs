@@ -158,7 +158,7 @@ namespace Telegram_Analytic.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Telegram_Analytic.Models.ApplicationUser", b =>
+            modelBuilder.Entity("Telegram_Analytic.Models.AccountModels.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text");
@@ -167,7 +167,6 @@ namespace Telegram_Analytic.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Company")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
@@ -295,9 +294,6 @@ namespace Telegram_Analytic.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("ClickCount")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
@@ -309,9 +305,6 @@ namespace Telegram_Analytic.Migrations
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
-
-                    b.Property<DateTime?>("LastClickedAt")
-                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -358,7 +351,7 @@ namespace Telegram_Analytic.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Telegram_Analytic.Models.ApplicationUser", null)
+                    b.HasOne("Telegram_Analytic.Models.AccountModels.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -367,7 +360,7 @@ namespace Telegram_Analytic.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Telegram_Analytic.Models.ApplicationUser", null)
+                    b.HasOne("Telegram_Analytic.Models.AccountModels.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -382,7 +375,7 @@ namespace Telegram_Analytic.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Telegram_Analytic.Models.ApplicationUser", null)
+                    b.HasOne("Telegram_Analytic.Models.AccountModels.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -391,7 +384,7 @@ namespace Telegram_Analytic.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Telegram_Analytic.Models.ApplicationUser", null)
+                    b.HasOne("Telegram_Analytic.Models.AccountModels.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -400,7 +393,7 @@ namespace Telegram_Analytic.Migrations
 
             modelBuilder.Entity("Telegram_Analytic.Models.Project", b =>
                 {
-                    b.HasOne("Telegram_Analytic.Models.ApplicationUser", "User")
+                    b.HasOne("Telegram_Analytic.Models.AccountModels.ApplicationUser", "User")
                         .WithMany("Projects")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -420,7 +413,7 @@ namespace Telegram_Analytic.Migrations
                     b.Navigation("Project");
                 });
 
-            modelBuilder.Entity("Telegram_Analytic.Models.ApplicationUser", b =>
+            modelBuilder.Entity("Telegram_Analytic.Models.AccountModels.ApplicationUser", b =>
                 {
                     b.Navigation("Projects");
                 });

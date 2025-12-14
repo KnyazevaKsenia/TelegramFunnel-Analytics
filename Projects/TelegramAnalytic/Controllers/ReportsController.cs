@@ -18,6 +18,7 @@ public class ReportsController : Controller
     {
         try
         {
+            Console.WriteLine(reportRequest.EndDate);
             var result = await _rabbitMqService.CreateReportAsync(reportRequest);
             if (result)
             {

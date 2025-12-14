@@ -8,3 +8,4 @@ public interface IRabbitMqService
     public Task<List<ReportStatus>> GetProjectReportStatusesAsync(Guid projectId);
     public Task StartAsync();
 }
+

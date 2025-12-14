@@ -8,7 +8,7 @@ public class ReportRequestMessage
     public DateTime EndDate { get; set; }
     public ReportFormat Format { get; set; }
     public DateTime RequestedAt { get; set; }
-    public string Email { get; set; }
+    public required string Email { get; set; }
 }
 
 public enum ReportFormat

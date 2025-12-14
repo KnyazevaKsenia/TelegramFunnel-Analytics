@@ -6,23 +6,23 @@
     <Nullable>enable</Nullable>
     <RootNamespace>StatisticLibrary</RootNamespace>
     
-    <!-- NuGet метаданные -->
+    <!-- NuGet пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ -->
     <PackageId>TelegramStatisticManagerForMongoDb</PackageId>
     <Version>1.0.0</Version>
     <Authors>ksushakkk</Authors>
     <Description>A telegram statistic helper for mongo database</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     
-    <!-- Генерация пакета при сборке -->
+    <!-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ -->
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     
-    <!-- Включение документации -->
+    <!-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ -->
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- Указываем версии явно -->
+    <!-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ -->
     <PackageReference Include="MongoDB.Bson" Version="3.5.2" />
     <PackageReference Include="MongoDB.Driver" Version="3.5.2" />
   </ItemGroup>

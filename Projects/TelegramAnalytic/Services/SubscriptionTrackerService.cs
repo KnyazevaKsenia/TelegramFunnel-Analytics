@@ -21,7 +21,7 @@ public class SubscriptionTrackingService : ISubscriptionTracker
         IBackgroundJobClient backgroundJobClient,
         ILogger<SubscriptionTrackingService> logger)
     {
-        _clickEvents = (IMongoCollection<ClickEvent>)mongoDatabase.Clicks;
+        _clickEvents = mongoDatabase.Clicks;
         _botClient = botClient;
         _backgroundJobClient = backgroundJobClient;
         _logger = logger;
@@ -33,7 +33,7 @@ public class SubscriptionTrackingService : ISubscriptionTracker
         try
         {
             var lastClickEvent = await _clickEvents
-                .Find(x => x.User_Id == userId)
+                .Find(x => x.UserId == userId)
                 .SortByDescending(x => x.Timestamp)
                 .FirstOrDefaultAsync();
 
@@ -46,7 +46,7 @@ public class SubscriptionTrackingService : ISubscriptionTracker
             _backgroundJobClient.Schedule<SubscriptionTrackingService>(
                 x => x.CheckSubscriptionJob(lastClickEvent.Id, userId, chat),
                 TimeSpan.FromSeconds(30));
-
+            
             _logger.LogInformation("Started subscription tracking for user {UserId} on channel {Channel}", userId, chat.Username);
         }
         catch (Exception ex)

@@ -5,18 +5,13 @@ public class ProjectStatistics
     public Guid ProjectId { get; set; }
     public DateTime PeriodStart { get; set; }
     public DateTime PeriodEnd { get; set; }
-    
     public int TotalClicks { get; set; }
     public int TotalSubscriptions { get; set; }
     public double ConversionRate { get; set; }
     public int UniqueUsers { get; set; }
-    
     public List<DailyStat> DailyStats { get; set; } = new();
-    
     public List<SourceStat> SourceStats { get; set; } = new();
-    
     public List<CampaignStat> CampaignStats { get; set; } = new();
-    
     public List<LocationStat> LocationStats { get; set; } = new();
     public List<DeviceStat> DeviceStats { get; set; } = new();
     public List<ContentStat> ContentStats { get; set; } = new(); // НОВОЕ
@@ -59,9 +54,9 @@ public class StatFilter
     public Guid ProjectId { get; set; }
     public DateTime? StartDate { get; set; }
     public DateTime? EndDate { get; set; }
-    public string[] Sources { get; set; }
-    public string[] Campaigns { get; set; }
-    public string[] Contents { get; set; } // НОВОЕ
+    public string[]? Sources { get; set; }
+    public string[]? Campaigns { get; set; }
+    public string[]? Contents { get; set; } // НОВОЕ
 }
 public class LocationStat
 {

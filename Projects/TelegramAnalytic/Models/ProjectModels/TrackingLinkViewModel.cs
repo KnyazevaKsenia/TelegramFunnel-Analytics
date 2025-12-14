@@ -9,23 +9,23 @@ public class TrackingLinkViewModel
     [Required]
     [StringLength(100)]
     [Display(Name = "Название ссылки")]
-    public string Name { get; set; }
+    public required string Name { get; set; }
     
     [Required]
     [Url]
     [Display(Name = "Целевой URL")]
-    public string BaseUrl { get; set; }
+    public required string BaseUrl { get; set; }
     
     [Display(Name = "Идентификатор ссылки")]
-    public string UrlIdentifier { get; set; }
+    public required string UrlIdentifier { get; set; }
 
     [Display(Name = "Сгенерированный URL")]
-    public string GeneratedUrl { get; set; }
+    public required string GeneratedUrl { get; set; }
     
     // UTM-параметры
-    public string UtmSource { get; set; }
-    public string UtmCampaign { get; set; }
-    public string UtmContent { get; set; }
+    public required string UtmSource { get; set; }
+    public required string UtmCampaign { get; set; }
+    public required string UtmContent { get; set; }
 
     [Display(Name = "Активна")]
     public bool IsActive { get; set; } = true;

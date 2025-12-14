@@ -15,14 +15,14 @@ public class ClickController : ControllerBase
     {
         _trackingService = trackingService;
         _mongoClickService = mongoClickService;
-        _configuration = configuration;
+        _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
     }
     
     [HttpGet("{identifier}")]
     public async Task<IActionResult> TrackClick(string identifier)
     {
         var trackingLink = await _trackingService.ProcessClickAsync(identifier);
-        if (trackingLink == null) return Redirect(_configuration["Tracking:Domain"]);
+        if (trackingLink == null) return Redirect(_configuration["Tracking:Domain"] ?? string.Empty);
         
         var botUrl = await _mongoClickService.TrackClick(trackingLink, GetClientIpAddress(), Request.Headers["User-Agent"].ToString());
         return Redirect(botUrl);

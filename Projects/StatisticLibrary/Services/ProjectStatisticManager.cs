@@ -22,7 +22,7 @@ public class ProjectStatisticManager : IProjectStatisticManager
         try
         {
             var events = await GetFilteredEventsAsync(filter);
-        
+            
             if (!events.Any())
                 return CreateEmptyStats(filter);
             
@@ -33,7 +33,7 @@ public class ProjectStatisticManager : IProjectStatisticManager
                 PeriodEnd = filter.EndDate ?? events.Max(x => x.Timestamp),
                 TotalClicks = events.Count,
                 TotalSubscriptions = events.Count(x => x.IsSubscribed),
-                UniqueUsers = events.Select(x => x.User_Id).Distinct().Count(),
+                UniqueUsers = events.Select(x => x.UserId).Distinct().Count(),
                 DailyStats = GetDailyStats(events),
                 SourceStats = GetSourceStats(events),
                 CampaignStats = GetCampaignStats(events),
@@ -206,7 +206,7 @@ public class ProjectStatisticManager : IProjectStatisticManager
 
         if (filter.Campaigns?.Any() == true)
             mongoFilter &= Builders<ClickEvent>.Filter.In(x => x.UtmCampaign, filter.Campaigns);
-            
+        
         if (filter.Contents?.Any() == true) // НОВОЕ
             mongoFilter &= Builders<ClickEvent>.Filter.In(x => x.UtmContent, filter.Contents);
         

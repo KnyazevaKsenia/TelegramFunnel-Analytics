@@ -18,13 +18,13 @@ public class ClickEvent
     public Guid ProjectId { get; set; }
     
     [BsonElement("ipAddress")]
-    public string IpAddress { get; set; }
+    public string? IpAddress { get; set; }
     
     [BsonElement("userAgent")]
-    public string UserAgent { get; set; }
+    public string? UserAgent { get; set; }
 
     [BsonElement("sessionToken")]
-    public string SessionToken { get; set; }
+    public string? SessionToken { get; set; }
 
     [BsonElement("telegramUserName")]
     public string? TelegramUserName { get; set; }
@@ -33,19 +33,21 @@ public class ClickEvent
     public bool IsLinkedWithTelegram { get; set; }
 
     [BsonElement("utmSource")]
-    public string UtmSource { get; set; }   
+    public string? UtmSource { get; set; }   
 
     [BsonElement("utmCampaign")]
-    public string UtmCampaign { get; set; }
+    public string? UtmCampaign { get; set; }
 
     [BsonElement("utmContent")]
-    public string UtmContent { get; set; }
+    public string? UtmContent { get; set; }
     
     [BsonElement("timestamp")]
     [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
     [BsonRepresentation(BsonType.DateTime)]
     public DateTime Timestamp { get; set; } = DateTime.UtcNow;
-    public long User_Id {get; set;}
+    
+    [BsonElement("User_Id")]
+    public long UserId {get; set;}
     public bool IsSubscribed { get; set; }
 }
 

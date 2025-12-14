@@ -16,7 +16,6 @@ public class RabbitMqService : IRabbitMqService, IDisposable
     private readonly ConnectionFactory _factory;
     private readonly MongoDbContext _context;
     private readonly ILogger<RabbitMqService> _logger;
-    private readonly RabbitMqSettings _settings;
     
     public RabbitMqService(IOptions<RabbitMqSettings> options, MongoDbContext context, ILogger<RabbitMqService> logger)
     {
@@ -29,21 +28,19 @@ public class RabbitMqService : IRabbitMqService, IDisposable
             throw new ArgumentNullException(nameof(options));
         }
 
-        _settings = options.Value;
+        var settings = options.Value;
 
-        if (_settings == null)
+        if (settings == null)
         {
-            throw new ArgumentNullException(nameof(_settings));
+            throw new ArgumentNullException(nameof(settings));
         }
-
-       
 
         _factory = new ConnectionFactory
         {
-            HostName = _settings.HostName ?? "localhost",
-            UserName = _settings.UserName ?? "guest",
-            Password = _settings.Password ?? "guest",
-            VirtualHost = _settings.VirtualHost ?? "/"
+            HostName = settings.HostName ?? "localhost",
+            UserName = settings.UserName ?? "guest",
+            Password = settings.Password ?? "guest",
+            VirtualHost = settings.VirtualHost ?? "/"
         };
 
     }
@@ -57,9 +54,9 @@ public class RabbitMqService : IRabbitMqService, IDisposable
             _connection = await _factory.CreateConnectionAsync();
             _channel = await _connection.CreateChannelAsync();
             
-            await _channel.QueueDeclareAsync("pdf_report_queue", durable: true, exclusive: false, autoDelete: false);
-            await _channel.QueueDeclareAsync("excel_report_queue", durable: true, exclusive: false, autoDelete: false);
-            await _channel.QueueDeclareAsync("report_status_queue", durable: false, exclusive: false, autoDelete: false);
+            await _channel.QueueDeclareAsync("pdf_report_queue", durable: true, exclusive: false, autoDelete: true);
+            await _channel.QueueDeclareAsync("excel_report_queue", durable: true, exclusive: false, autoDelete: true);
+            await _channel.QueueDeclareAsync("report_status_queue", durable: false, exclusive: false, autoDelete: true);
             
         }
         catch (Exception ex)
@@ -79,39 +76,35 @@ public class RabbitMqService : IRabbitMqService, IDisposable
                 "Excel" => "excel_report_queue",
                 _ => throw new ArgumentException("Unknown report type")
             };
-            
-            
-            
             var reportTask = new ReportTask
             {
                 ReportId = Guid.NewGuid(),
                 ProjectId = Guid.Parse(createReportRequest.ProjectId) ,
                 StartDate =  DateTime.SpecifyKind(createReportRequest.StartDate.AddDays(-1), DateTimeKind.Utc),
-                EndDate = DateTime.SpecifyKind(createReportRequest.EndDate.AddDays(-1), DateTimeKind.Utc),
-                Email = createReportRequest.Email,
+                EndDate = DateTime.SpecifyKind(createReportRequest.EndDate, DateTimeKind.Utc),
+                Email = createReportRequest.Email ,
             };
-            
             
             var json = JsonSerializer.Serialize(reportTask);
             var bytes = Encoding.UTF8.GetBytes(json);
-            
             
             var reportStatus = new ReportStatus()
             {
                 ReportId = reportTask.ReportId,
                 ProjectId = Guid.Parse(createReportRequest.ProjectId),
                 Format = createReportRequest.Format,
-                Status = "Pending",
+                Status = "Отправка",
                 CreatedAt = DateTime.UtcNow
             };
             
             await _context.ReportStatuses.InsertOneAsync(reportStatus);
             
-            await _channel.BasicPublishAsync(
-                exchange: "",
-                routingKey: queueName,
-                mandatory: false,
-                body: bytes);
+            if (_channel != null)
+                await _channel.BasicPublishAsync(
+                    exchange: "",
+                    routingKey: queueName,
+                    mandatory: false,
+                    body: bytes);
             
             return true;
         }
@@ -121,10 +114,10 @@ public class RabbitMqService : IRabbitMqService, IDisposable
             return false;
         }
     }
-
+    
     public async Task<List<ReportStatus>> GetProjectReportStatusesAsync(Guid projectId)
     {
-        var collection =(IMongoCollection<ReportStatus>) _context.ReportStatuses;
+        var collection = _context.ReportStatuses;
         
         var filter = Builders<ReportStatus>.Filter.Eq(s => s.ProjectId, projectId);
         

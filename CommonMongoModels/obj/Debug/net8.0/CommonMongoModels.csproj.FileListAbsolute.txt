@@ -10,3 +10,4 @@ C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\CommonMongoModels\obj\Debug\n
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\CommonMongoModels\obj\Debug\net8.0\refint\CommonMongoModels.dll
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\CommonMongoModels\obj\Debug\net8.0\CommonMongoModels.pdb
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\CommonMongoModels\obj\Debug\net8.0\ref\CommonMongoModels.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\CommonMongoModels\obj\Debug\net8.0\CommonMongoModels.sourcelink.json

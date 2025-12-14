@@ -25,7 +25,7 @@
                 <div>
                     <h5 class="alert-heading mb-1">Бот не является администратором группы</h5>
                     <p class="mb-0">
-                        Для корректной работы системы необходимо добавить бота в канал
+                        Для корректной работы системы необходимо добавить бота <strong>@@tfa_finder_bot</strong>  в канал
                         <strong>@telegramChanelUrl</strong> и предоставить ему права администратора.
                         Без этого отслеживание кликов будет недоступно.
                     </p>
@@ -62,8 +62,7 @@
             </button>
         </div>
     </div>
-
-    <!-- Секция статусов отчетов -->
+    
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -72,7 +71,7 @@
                 </div>
                 <div class="card-body">
                     <div id="reportsStatusContainer">
-                        <!-- Здесь будут отображаться статусы отчетов -->
+                      
                         <p class="text-muted">Загрузка статусов отчетов...</p>
                     </div>
                 </div>
@@ -195,7 +194,7 @@
         </div>
     </div>
 
-    <!-- Секция статистики -->
+    <!-- СТАТИСТИКА -->
     <div class="row mb-4">
         <div class="col-12">
             <div class="card">
@@ -219,7 +218,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <!-- Карточки с основной статистикой -->
+                    
                     <div class="row mb-4" id="statsCards">
                         <div class="col-md-3 col-6">
                             <div class="card bg-primary text-white">
@@ -513,6 +512,8 @@
                 </div>
             </div>
         </div>
+    </div>
+    
     
     
     <div class="modal fade" id="createLinkModal" tabindex="-1" aria-labelledby="createLinkModalLabel" aria-hidden="true">
@@ -563,7 +564,7 @@
         </div>
     </div>
     </div>
-</div>
+
 
 <div class="modal fade" id="deleteLinkConfirmModal" tabindex="-1">
     <div class="modal-dialog">
@@ -590,23 +591,21 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
     <script>
 
-        //секция отчетов //
-        //секция отчетов//
-        // Обработка отправки формы
+
         document.getElementById('createReportForm').addEventListener('submit', async function(e) {
             e.preventDefault();
 
             const submitBtn = document.getElementById('submitReportBtn');
             const spinner = submitBtn.querySelector('.spinner-border');
 
-            // Показываем спиннер
+        
             spinner.classList.remove('d-none');
             submitBtn.disabled = true;
 
             try {
                 const formData = new FormData(this);
 
-                // Валидация данных
+        
                 const projectId = formData.get('ProjectId');
                 const startDateStr = formData.get('StartDate');
                 const endDateStr = formData.get('EndDate');
@@ -618,7 +617,7 @@
                     return;
                 }
 
-                // Преобразуем даты
+            
                 const startDate = new Date(startDateStr);
                 const endDate = new Date(endDateStr);
 
@@ -635,7 +634,7 @@
                     Format: format
                 };
 
-                console.log('📤 Sending data:', JSON.stringify(data, null, 2));
+                console.log('Sending data:', JSON.stringify(data, null, 2));
 
                 const response = await fetch('/Reports/SendReportRequest', {
                     method: 'POST',
@@ -645,58 +644,48 @@
                     body: JSON.stringify(data)
                 });
 
-                console.log('📥 Response status:', response.status);
+                console.log('Response status:', response.status);
 
                 if (response.ok) {
                     const result = await response.json();
-                    console.log('✅ Success:', result);
+                    console.log(' Success:', result);
 
-                    // Закрываем модальное окно формы и удаляем backdrop
                     const createReportModal = bootstrap.Modal.getInstance(document.getElementById('createReportModal'));
                     createReportModal.hide();
 
-                    // Ждем пока закроется первое модальное окно
                     setTimeout(() => {
-                        // Показываем модальное окно успеха
                         const successModal = new bootstrap.Modal(document.getElementById('successModal'));
                         successModal.show();
 
-                        // Очищаем форму
                         this.reset();
 
-                        // Обновляем статусы отчетов
                         loadReportsStatus();
                     }, 300);
 
                 } else {
                     const error = await response.json();
-                    console.error('❌ Error response:', error);
+                    console.error('Error response:', error);
                     alert('Ошибка: ' + (error.message || 'Не удалось отправить запрос'));
                 }
             } catch (error) {
-                console.error('❌ Network error:', error);
+                console.error(' Network error:', error);
                 alert('Произошла ошибка при отправке запроса');
             } finally {
-                // Скрываем спиннер
                 spinner.classList.add('d-none');
                 submitBtn.disabled = false;
             }
 });
 
-        // Обработчик закрытия модального окна успеха
         document.getElementById('successModal').addEventListener('hidden.bs.modal', function () {
-            // Удаляем backdrop если он остался
             const backdrops = document.querySelectorAll('.modal-backdrop');
             backdrops.forEach(backdrop => {
                 backdrop.remove();
             });
 
-            // Восстанавливаем скролл
             document.body.classList.remove('modal-open');
             document.body.style.paddingRight = '';
         });
-
-        // Загрузка статусов отчетов
+        
         async function loadReportsStatus() {
             try {
                 const response = await fetch('/Reports/GetProjectReportsStatuses?projectId=@Model.Id');
@@ -709,7 +698,6 @@
             }
 }
 
-        // Отображение статусов отчетов
         function displayReportsStatus(reports) {
             const container = document.getElementById('reportsStatusContainer');
 
@@ -719,8 +707,8 @@
             }
 
             let html = '<div class="table-responsive"><table class="table table-striped">';
-            html += '<thead><tr><th>Дата запроса</th><th>Формат</th><th>Статус</th><th>Email</th></tr></thead><tbody>';
-
+            html += '<thead><tr><th>Дата запроса</th><th>Формат</th><th>Статус</th></tr></thead><tbody>';
+        
             reports.forEach(report => {
                 const statusClass = getStatusClass(report.status);
                 const formatBadge = report.format === 'pdf' ? 'bg-danger' : 'bg-success';
@@ -730,7 +718,7 @@
                 <td>${new Date(report.createdAt).toLocaleDateString()}</td>
                 <td><span class="badge ${formatBadge}">${report.format.toUpperCase()}</span></td>
                 <td><span class="badge ${statusClass}">${report.status}</span></td>
-                <td>${report.email || '-'}</td>
+
             </tr>
         `;
             });
@@ -748,7 +736,6 @@
             }
 }
 
-        // Валидация дат
         document.getElementById('EndDate').addEventListener('change', function() {
             const startDate = new Date(document.getElementById('StartDate').value);
             const endDate = new Date(this.value);
@@ -759,16 +746,14 @@
             }
 });
 
-        // Загружаем статусы при загрузке страницы
         document.addEventListener('DOMContentLoaded', function() {
             loadReportsStatus();
 
-            // Устанавливаем минимальную дату - сегодня
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('StartDate').max = today;
             document.getElementById('EndDate').max = today;
         });
-        //секция отчетов //
+    
         
         let charts = {};
         const projectId = '@Model.Id';
@@ -1100,7 +1085,7 @@
                 }
             });
         }
-
+        
         function updateStatsCards(data) {
             $('#totalClicks').text(data.totalClicks?.toLocaleString() || '0');
             $('#totalSubscriptions').text(data.totalSubscriptions?.toLocaleString() || '0');

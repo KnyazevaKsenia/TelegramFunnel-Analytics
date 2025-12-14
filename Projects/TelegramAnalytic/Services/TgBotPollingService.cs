@@ -13,7 +13,7 @@ public class TgBotPollingService
     private readonly ILogger<TgBotPollingService> _logger;
     private readonly ITelegramBotClient _bot;
 
-    public TgBotPollingService(IServiceScopeFactory scopeFactory, ILogger<TgBotPollingService> logger, IConfiguration config, ITelegramBotClient botClient)
+    public TgBotPollingService(IServiceScopeFactory scopeFactory, ILogger<TgBotPollingService> logger, ITelegramBotClient botClient)
     {
         _scopeFactory = scopeFactory;
         _logger = logger;
@@ -28,7 +28,7 @@ public class TgBotPollingService
         {
             AllowedUpdates = new[] { UpdateType.Message, UpdateType.CallbackQuery }
         };
-
+        
         _bot.StartReceiving(async (client, update, token) =>
         {
             using var scope = _scopeFactory.CreateScope();

@@ -1,11 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Telegram_Analytic.Models;
-
-namespace Telegram_Analytic.Infrastructure.Database;
-
-
+﻿using Telegram_Analytic.Models;
+using Telegram_Analytic.Models.AccountModels;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+
+namespace Telegram_Analytic.Infrastructure.Database;
 
 public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 {
@@ -36,7 +34,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
                 .HasForeignKey(p => p.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
         });
-
         
         builder.Entity<TrackingLink>(entity =>
         {

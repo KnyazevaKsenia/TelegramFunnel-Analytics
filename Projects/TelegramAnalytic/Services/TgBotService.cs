@@ -75,11 +75,16 @@ public class TgBotService : ITgBotService
         var username = update.Message.Chat.Username;
         var firstName = update.Message.Chat.FirstName;
         
-        var startParams = update.Message.Text.Split(' ');
-        var sessionToken = startParams.Length > 1 ? startParams[1] : null;
-        var user_id = update.Message.From.Id;
-        
-        await NextAfterStart(chatId, username, firstName, sessionToken, user_id);
+        var startParams = update.Message.Text?.Split(' ');
+        var sessionToken = startParams != null && startParams.Length > 1 ? startParams[1] : null;
+        var userId = update.Message.From.Id;
+        if (update.Message.From != null)
+        {
+            if (username != null)
+                if (firstName != null)
+                    if (sessionToken != null)
+                        await NextAfterStart(chatId, username, firstName, sessionToken, userId);
+        }
     }
     
     public async Task<bool> IsBotAdmin(string channelUrl)
@@ -118,7 +123,7 @@ public class TgBotService : ITgBotService
         var update = Builders<ClickEvent>.Update
             .Set(x => x.IsLinkedWithTelegram, true)
             .Set(x => x.TelegramUserName, username)
-            .Set(x=> x.User_Id, user_id);
+            .Set(x=> x.UserId, user_id);
         
         await _mongoContext.Clicks.UpdateOneAsync(
             x => x.SessionToken == sessionToken, 

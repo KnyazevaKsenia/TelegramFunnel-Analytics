@@ -13,3 +13,4 @@ C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\CommonRabbitMq\obj\Debug\net8
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\CommonRabbitMq\obj\Debug\net8.0\refint\CommonRabbitMq.dll
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\CommonRabbitMq\obj\Debug\net8.0\CommonRabbitMq.pdb
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\CommonRabbitMq\obj\Debug\net8.0\ref\CommonRabbitMq.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\CommonRabbitMq\obj\Debug\net8.0\CommonRabbitMq.sourcelink.json

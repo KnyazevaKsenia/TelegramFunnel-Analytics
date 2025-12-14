@@ -15,3 +15,4 @@ C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\Projects\StatisticLibrary\obj
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\Projects\StatisticLibrary\obj\Debug\net8.0\StatisticLibrary.xml
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\Projects\StatisticLibrary\obj\Debug\net8.0\StatisticLibrary.pdb
 C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\Projects\StatisticLibrary\obj\Debug\net8.0\ref\StatisticLibrary.dll
+C:\Users\kn_ks\Desktop\3rd\TelegramFunnel-Solution\Projects\StatisticLibrary\obj\Debug\net8.0\StatisticLibrary.sourcelink.json

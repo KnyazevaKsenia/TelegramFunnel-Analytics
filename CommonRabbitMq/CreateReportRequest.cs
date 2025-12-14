@@ -4,18 +4,13 @@ namespace CommonRabbitMq;
 
 public class CreateReportRequest
 {
-    [Required]
-    public string ProjectId { get; set; }
+    public required string ProjectId { get; set; }
     
-    [Required]
     public DateTime StartDate { get; set; }
     
-    [Required]
     public DateTime EndDate { get; set; }
     
-    [Required]
-    public string Email { get; set; }
+    public required string Email { get; set; }
     
-    [Required]
-    public string Format { get; set; }
+    public required string Format { get; set; }
 }

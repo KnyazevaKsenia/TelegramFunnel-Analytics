@@ -15,14 +15,16 @@ public class ProjectController : Controller
     private const int MaxLinksPerProject = 20;
     private readonly ITgBotService _tgBotService;
     private readonly IProjectMappingService _projectMappingService;
-    
+    private readonly IMongoClickService _mongoClickService;
     public ProjectController(ApplicationDbContext context, ITrackingLinksService linkService, ITgBotService tgBotService, 
-                                                                            IProjectMappingService projectMappingService)
+                                                                            IProjectMappingService projectMappingService,
+                                                                                IMongoClickService mongoClickService)
     {
         _context = context;
         _tgBotService = tgBotService;
         _linkService = linkService;
         _projectMappingService = projectMappingService;
+        _mongoClickService = mongoClickService;
     }
     
     public async Task<IActionResult> Index(string projectId)
@@ -75,7 +77,7 @@ public class ProjectController : Controller
             {
                 return Json(new { success = false, error = "Неверный формат ID проекта" });
             }
-
+        
             var project = await _context.Projects
                 .Include(p => p.TrackingLinks)
                 .FirstOrDefaultAsync(p => p.Id == projectId);
@@ -118,7 +120,6 @@ public class ProjectController : Controller
         {
             return Json(new { success = false, error = ex.Message });
         }
-
     }
 
     [HttpPost]
@@ -131,12 +132,13 @@ public class ProjectController : Controller
                 return Json(new { success = false, error = "Ссылка не найдена" });
 
             _context.TrackingLinks.Remove(link);
-            await _context.SaveChangesAsync();
-
+            await _mongoClickService.DeleteLinkClicks(linkId);
+            
+            
             var project = await _context.Projects
                 .Include(p => p.TrackingLinks)
                 .FirstOrDefaultAsync(p => p.Id == link.ProjectId);
-
+            
             return Json(new { 
                 success = true,
                 currentCount = project?.TrackingLinks.Count ?? 0,
