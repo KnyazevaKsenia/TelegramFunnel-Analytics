@@ -20,7 +20,6 @@ public class TrackingLink
     [Display(Name = "Сгенерированный URL")]
     public string GeneratedUrl { get; set; }
     
-    // UTM-параметры
     public string UtmSource { get; set; }
     public string UtmCampaign { get; set; }
     public string UtmContent { get; set; }
@@ -32,7 +31,6 @@ public class TrackingLink
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     
     
-    // Связи
     public Guid ProjectId { get; set; }
     public Project Project { get; set; }
 }

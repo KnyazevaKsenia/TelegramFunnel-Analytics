@@ -37,7 +37,7 @@ public class ProjectStatisticManager : IProjectStatisticManager
                 DailyStats = GetDailyStats(events),
                 SourceStats = GetSourceStats(events),
                 CampaignStats = GetCampaignStats(events),
-                ContentStats = GetContentStats(events), // НОВОЕ
+                ContentStats = GetContentStats(events), 
                 LocationStats = await GetLocationStatsAsync(events), 
                 DeviceStats = GetDeviceStats(events)
             };
@@ -62,7 +62,7 @@ public class ProjectStatisticManager : IProjectStatisticManager
             "daily" => GetDailyStats(events),
             "sources" => GetSourceStats(events),
             "campaigns" => GetCampaignStats(events),
-            "content" => GetContentStats(events), // НОВОЕ
+            "content" => GetContentStats(events), 
             "locations" => await GetLocationStatsAsync(events),
             "devices" => GetDeviceStats(events),
             _ => throw new ArgumentException($"Unknown chart type: {chartType}")
@@ -207,7 +207,7 @@ public class ProjectStatisticManager : IProjectStatisticManager
         if (filter.Campaigns?.Any() == true)
             mongoFilter &= Builders<ClickEvent>.Filter.In(x => x.UtmCampaign, filter.Campaigns);
         
-        if (filter.Contents?.Any() == true) // НОВОЕ
+        if (filter.Contents?.Any() == true) 
             mongoFilter &= Builders<ClickEvent>.Filter.In(x => x.UtmContent, filter.Contents);
         
         return await _clicks.Find(mongoFilter).ToListAsync();

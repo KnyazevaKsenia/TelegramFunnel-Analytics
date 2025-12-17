@@ -151,11 +151,9 @@ public class TrackingLinksService : ITrackingLinksService
 
     private string BuildFinalUrlWithUtm(string baseUrl, string utmSource, string utmCampaign, string utmContent)
     {
-        // Создаем конечный URL с UTM-параметрами
         var uriBuilder = new UriBuilder(baseUrl);
         var query = HttpUtility.ParseQueryString(uriBuilder.Query);
         
-        // Добавляем UTM-параметры к конечному URL
         if (!string.IsNullOrEmpty(utmSource))
             query["utm_source"] = utmSource;
         if (!string.IsNullOrEmpty(utmCampaign))

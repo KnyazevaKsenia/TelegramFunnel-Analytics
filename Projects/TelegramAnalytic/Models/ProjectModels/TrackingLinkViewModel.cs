@@ -22,7 +22,6 @@ public class TrackingLinkViewModel
     [Display(Name = "Сгенерированный URL")]
     public required string GeneratedUrl { get; set; }
     
-    // UTM-параметры
     public required string UtmSource { get; set; }
     public required string UtmCampaign { get; set; }
     public required string UtmContent { get; set; }

@@ -1,8 +1,6 @@
-﻿namespace Telegram_Analytic.Models;
+﻿using System.ComponentModel.DataAnnotations;
 
-// Models/ViewModels/RegisterViewModel.cs
-using System.ComponentModel.DataAnnotations;
-
+namespace Telegram_Analytic.Models.AccountModels;
 public class RegisterViewModel
 {
     [Required(ErrorMessage = "Имя обязательно")]

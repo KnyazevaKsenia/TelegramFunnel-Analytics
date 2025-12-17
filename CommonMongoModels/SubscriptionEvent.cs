@@ -24,7 +24,7 @@ public class SubscriptionEvent
     
     [BsonElement("action")]
     [BsonRequired]
-    public string? Action { get; set; } // "subscribe"
+    public string? Action { get; set; } 
 
     [BsonElement("timestamp")]
     [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]

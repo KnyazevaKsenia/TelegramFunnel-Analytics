@@ -14,7 +14,7 @@ public class ProjectStatistics
     public List<CampaignStat> CampaignStats { get; set; } = new();
     public List<LocationStat> LocationStats { get; set; } = new();
     public List<DeviceStat> DeviceStats { get; set; } = new();
-    public List<ContentStat> ContentStats { get; set; } = new(); // НОВОЕ
+    public List<ContentStat> ContentStats { get; set; } = new();
 }
 
 public class ContentStat
@@ -56,7 +56,7 @@ public class StatFilter
     public DateTime? EndDate { get; set; }
     public string[]? Sources { get; set; }
     public string[]? Campaigns { get; set; }
-    public string[]? Contents { get; set; } // НОВОЕ
+    public string[]? Contents { get; set; } 
 }
 public class LocationStat
 {
