@@ -53,6 +53,8 @@ builder.Services.Configure<PolzaAiSettings>(
 
 builder.Services.AddHttpClient<IAiReportService, PolzaAiReportService>();
 
+builder.Services.AddScoped<AiAnalysisCoordinator>();
+builder.Services.AddHostedService<AiAnalysisQueueConsumer>();
 
 // 6. RabbitMQ Service
 builder.Services.AddSingleton<RabbitMqService>();

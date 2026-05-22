@@ -6,6 +6,7 @@ using System.Text.Json;
 using CommonMongoModels;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
+using Telegram_Analytic.Models;
 
 namespace CommonRabbitMq;
 
@@ -57,7 +58,7 @@ public class RabbitMqService : IRabbitMqService, IDisposable
             await _channel.QueueDeclareAsync("pdf_report_queue", durable: true, exclusive: false, autoDelete: true);
             await _channel.QueueDeclareAsync("excel_report_queue", durable: true, exclusive: false, autoDelete: true);
             await _channel.QueueDeclareAsync("report_status_queue", durable: false, exclusive: false, autoDelete: true);
-            
+            await _channel.QueueDeclareAsync(queue: "ai_analysis_queue", durable: true, exclusive: false, autoDelete: false);
         }
         catch (Exception ex)
         {
@@ -123,6 +124,92 @@ public class RabbitMqService : IRabbitMqService, IDisposable
         
         return await collection
             .Find(filter)
+            .ToListAsync();
+    }
+    public async Task<Guid?> CreateAiAnalysisAsync(CreateAiAnalysisRequest request)
+    {
+        try
+        {
+            if (_channel == null)
+            {
+                await StartAsync();
+            }
+
+            if (_channel == null)
+            {
+                _logger.LogError("RabbitMQ channel is not initialized");
+                return null;
+            }
+
+            var analysisId = Guid.NewGuid();
+
+            var startDate = DateTime.SpecifyKind(request.StartDate, DateTimeKind.Utc);
+            var endDate = DateTime.SpecifyKind(request.EndDate, DateTimeKind.Utc);
+
+            var status = new AiAnalysisStatus
+            {
+                AnalysisId = analysisId,
+                ProjectId = request.ProjectId,
+                StartDate = startDate,
+                EndDate = endDate,
+                Status = "В очереди",
+                CreatedAt = DateTime.UtcNow
+            };
+
+            await _context.AiAnalysisStatuses.InsertOneAsync(status);
+
+            var task = new AiAnalysisTask
+            {
+                AnalysisId = analysisId,
+                ProjectId = request.ProjectId,
+                StartDate = startDate,
+                EndDate = endDate,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            var json = JsonSerializer.Serialize(task);
+            var bytes = Encoding.UTF8.GetBytes(json);
+
+            await _channel.BasicPublishAsync(
+                exchange: "",
+                routingKey: "ai_analysis_queue",
+                mandatory: false,
+                body: bytes);
+
+            _logger.LogInformation(
+                "AI analysis task {AnalysisId} created for project {ProjectId}",
+                analysisId,
+                request.ProjectId);
+
+            return analysisId;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(
+                ex,
+                "Error creating AI analysis for project {ProjectId}",
+                request.ProjectId);
+
+            return null;
+        }
+    }
+    public async Task<AiAnalysisStatus?> GetAiAnalysisAsync(Guid analysisId)
+    {
+        var filter = Builders<AiAnalysisStatus>.Filter.Eq(x => x.AnalysisId, analysisId);
+
+        return await _context.AiAnalysisStatuses
+            .Find(filter)
+            .FirstOrDefaultAsync();
+    }
+
+    public async Task<List<AiAnalysisStatus>> GetProjectAiAnalysisStatusesAsync(Guid projectId)
+    {
+        var filter = Builders<AiAnalysisStatus>.Filter.Eq(x => x.ProjectId, projectId);
+
+        return await _context.AiAnalysisStatuses
+            .Find(filter)
+            .SortByDescending(x => x.CreatedAt)
+            .Limit(10)
             .ToListAsync();
     }
     

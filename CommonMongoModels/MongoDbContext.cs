@@ -4,7 +4,6 @@
 namespace CommonMongoModels;
 
 using MongoDB.Driver;
-
 using Microsoft.Extensions.Options;
 
 public class MongoDbContext
@@ -20,5 +19,6 @@ public class MongoDbContext
     
     public IMongoCollection<ClickEvent> Clicks => _database.GetCollection<ClickEvent>("clicks");
     public IMongoCollection<ReportStatus> ReportStatuses => _database.GetCollection<ReportStatus>("report_statuses");
-    
+    public IMongoCollection<AiAnalysisStatus> AiAnalysisStatuses =>
+        _database.GetCollection<AiAnalysisStatus>("AiAnalysisStatuses");
 }

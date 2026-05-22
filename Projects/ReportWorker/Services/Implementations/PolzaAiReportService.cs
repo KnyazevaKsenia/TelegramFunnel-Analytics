@@ -230,7 +230,7 @@ public class PolzaAiReportService : IAiReportService
         5. Risks: 2-4 пункта.
         """;
     }
-    
+
     private static AiReportContent GetFallbackContent(ProjectStatistics statistics)
     {
         return new AiReportContent
@@ -247,7 +247,7 @@ public class PolzaAiReportService : IAiReportService
                 $"Всего кликов: {statistics.TotalClicks}.",
                 $"Всего подписок: {statistics.TotalSubscriptions}."
             },
-            
+        
             Recommendations = new List<string>
             {
                 "Проверьте источники трафика с высокой кликабельностью и низкой конверсией.",

@@ -402,6 +402,83 @@
             </div>
         </div>
     </div>
+    <!-- AI АНАЛИЗ -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card border-primary">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="card-title mb-0">
+                            <i class="fas fa-wand-magic-sparkles me-2"></i>AI-анализ проекта
+                        </h5>
+                        <small class="text-muted">
+                            Анализ будет построен по выбранному периоду статистики
+                        </small>
+                    </div>
+
+                    <button type="button" class="btn btn-primary" id="requestAiAnalysisBtn">
+                        <span class="spinner-border spinner-border-sm d-none me-1" id="aiAnalysisSpinner" role="status"></span>
+                        Получить AI-анализ
+                    </button>
+                </div>
+
+                <div class="card-body">
+                    <div id="aiAnalysisEmpty" class="text-muted">
+                        <i class="fas fa-info-circle me-1"></i>
+                        Нажмите кнопку, чтобы получить краткие выводы, риски и рекомендации по текущей статистике проекта.
+                    </div>
+
+                    <div id="aiAnalysisStatus" class="alert alert-info d-none mb-3"></div>
+
+                    <div id="aiAnalysisResult" class="d-none">
+                        <div class="mb-4">
+                            <h6 class="fw-bold">
+                                <i class="fas fa-align-left me-2 text-primary"></i>Краткое резюме
+                            </h6>
+                            <div class="p-3 bg-light rounded" id="aiExecutiveSummary"></div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100 border-info">
+                                    <div class="card-header bg-info text-white">
+                                        <i class="fas fa-search me-2"></i>Ключевые выводы
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="mb-0" id="aiKeyFindings"></ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100 border-success">
+                                    <div class="card-header bg-success text-white">
+                                        <i class="fas fa-lightbulb me-2"></i>Рекомендации
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="mb-0" id="aiRecommendations"></ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100 border-warning">
+                                    <div class="card-header bg-warning text-dark">
+                                        <i class="fas fa-exclamation-triangle me-2"></i>Риски
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="mb-0" id="aiRisks"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <small class="text-muted" id="aiAnalysisMeta"></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Индикатор загрузки -->
     <div class="row mb-4 d-none" id="loadingStats">
         <div class="col-12">
@@ -1469,7 +1546,230 @@
             }, 5000);
         }
 
+        let currentAiAnalysisTimer = null;
 
+        $('#requestAiAnalysisBtn').on('click', async function () {
+            const btn = $('#requestAiAnalysisBtn');
+            const spinner = $('#aiAnalysisSpinner');
+
+            const period = getCurrentStatsPeriod();
+
+            if (!period.startDate || !period.endDate) {
+                alert('Выберите период для AI-анализа');
+                return;
+            }
+
+            btn.prop('disabled', true);
+            spinner.removeClass('d-none');
+
+            $('#aiAnalysisEmpty').addClass('d-none');
+            $('#aiAnalysisResult').addClass('d-none');
+
+            $('#aiAnalysisStatus')
+                .removeClass('d-none alert-danger alert-success')
+                .addClass('alert-info')
+                .text('AI-анализ поставлен в очередь...');
+
+            try {
+                const response = await fetch('/Reports/RequestAiAnalysis', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        ProjectId: projectId,
+                        StartDate: new Date(period.startDate).toISOString(),
+                        EndDate: new Date(period.endDate).toISOString()
+                    })
+                });
+
+                const result = await response.json();
+
+                if (!response.ok || !result.success) {
+                    throw new Error(result.message || 'Не удалось запустить AI-анализ');
+                }
+
+                $('#aiAnalysisStatus')
+                    .removeClass('alert-danger alert-success')
+                    .addClass('alert-info')
+                    .text('AI-анализ выполняется...');
+
+                pollAiAnalysis(result.analysisId);
+            } catch (error) {
+                $('#aiAnalysisStatus')
+                    .removeClass('alert-info alert-success')
+                    .addClass('alert-danger')
+                    .text('Ошибка: ' + error.message);
+
+                btn.prop('disabled', false);
+                spinner.addClass('d-none');
+            }
+});
+
+        function getCurrentStatsPeriod() {
+            const selected = $('#periodSelect').val();
+
+            if (selected === 'custom') {
+                return {
+                    startDate: $('#startDate').val(),
+                    endDate: $('#endDate').val()
+                };
+            }
+
+            const days = parseInt(selected || '30');
+
+            const startDate = new Date();
+            startDate.setDate(startDate.getDate() - days);
+
+            const endDate = new Date();
+
+            return {
+                startDate: startDate.toISOString().split('T')[0],
+                endDate: endDate.toISOString().split('T')[0]
+            };
+        }
+
+        function pollAiAnalysis(analysisId) {
+            if (currentAiAnalysisTimer) {
+                clearInterval(currentAiAnalysisTimer);
+            }
+
+            let attempts = 0;
+            const maxAttempts = 60;
+
+            currentAiAnalysisTimer = setInterval(async function () {
+                attempts++;
+
+                try {
+                    const response = await fetch(`/Reports/GetAiAnalysis?analysisId=${analysisId}`);
+
+                    if (!response.ok) {
+                        throw new Error('Не удалось получить статус AI-анализа');
+                    }
+
+                    const analysis = await response.json();
+
+                    $('#aiAnalysisStatus')
+                        .removeClass('d-none')
+                        .text('Статус: ' + analysis.status);
+
+                    if (analysis.status === 'Готово') {
+                        clearInterval(currentAiAnalysisTimer);
+                        currentAiAnalysisTimer = null;
+
+                        renderAiAnalysis(analysis);
+
+                        $('#aiAnalysisStatus')
+                            .removeClass('alert-info alert-danger')
+                            .addClass('alert-success')
+                            .text('AI-анализ готов');
+
+                        $('#requestAiAnalysisBtn').prop('disabled', false);
+                        $('#aiAnalysisSpinner').addClass('d-none');
+                        return;
+                    }
+
+                    if (analysis.status === 'Ошибка') {
+                        clearInterval(currentAiAnalysisTimer);
+                        currentAiAnalysisTimer = null;
+
+                        $('#aiAnalysisStatus')
+                            .removeClass('alert-info alert-success')
+                            .addClass('alert-danger')
+                            .text('Ошибка AI-анализа: ' + (analysis.errorMessage || 'Неизвестная ошибка'));
+
+                        $('#requestAiAnalysisBtn').prop('disabled', false);
+                        $('#aiAnalysisSpinner').addClass('d-none');
+                        return;
+                    }
+
+                    if (attempts >= maxAttempts) {
+                        clearInterval(currentAiAnalysisTimer);
+                        currentAiAnalysisTimer = null;
+
+                        $('#aiAnalysisStatus')
+                            .removeClass('alert-info alert-success')
+                            .addClass('alert-warning')
+                            .text('AI-анализ выполняется слишком долго. Попробуйте обновить страницу позже.');
+
+                        $('#requestAiAnalysisBtn').prop('disabled', false);
+                        $('#aiAnalysisSpinner').addClass('d-none');
+                    }
+                } catch (error) {
+                    clearInterval(currentAiAnalysisTimer);
+                    currentAiAnalysisTimer = null;
+
+                    $('#aiAnalysisStatus')
+                        .removeClass('alert-info alert-success')
+                        .addClass('alert-danger')
+                        .text('Ошибка: ' + error.message);
+
+                    $('#requestAiAnalysisBtn').prop('disabled', false);
+                    $('#aiAnalysisSpinner').addClass('d-none');
+                }
+            }, 3000);
+        }
+
+        function renderAiAnalysis(analysis) {
+            const content = analysis.content;
+
+            if (!content) {
+                $('#aiAnalysisStatus')
+                    .removeClass('alert-info alert-success')
+                    .addClass('alert-danger')
+                    .text('AI-анализ готов, но результат пустой');
+                return;
+            }
+
+            $('#aiExecutiveSummary').text(content.executiveSummary || 'Нет резюме');
+
+            renderAiList('#aiKeyFindings', content.keyFindings || []);
+            renderAiList('#aiRecommendations', content.recommendations || []);
+            renderAiList('#aiRisks', content.risks || []);
+
+            const start = analysis.startDate
+                ? new Date(analysis.startDate).toLocaleDateString('ru-RU')
+                : '';
+
+            const end = analysis.endDate
+                ? new Date(analysis.endDate).toLocaleDateString('ru-RU')
+                : '';
+
+            const completedAt = analysis.completedAt
+                ? new Date(analysis.completedAt).toLocaleString('ru-RU')
+                : '';
+
+            $('#aiAnalysisMeta').text(
+                `Период анализа: ${start} — ${end}` +
+                (completedAt ? ` | Готово: ${completedAt}` : '')
+            );
+
+            $('#aiAnalysisResult').removeClass('d-none');
+        }
+
+        function renderAiList(selector, items) {
+            const container = $(selector);
+            container.empty();
+
+            if (!items || items.length === 0) {
+                container.append('<li class="text-muted">Нет данных</li>');
+                return;
+            }
+
+            items.forEach(item => {
+                container.append(`<li>${escapeHtml(item)}</li>`);
+            });
+        }
+
+        function escapeHtml(value) {
+            return String(value)
+                .replaceAll('&', '&amp;')
+                .replaceAll('<', '&lt;')
+                .replaceAll('>', '&gt;')
+                .replaceAll('"', '&quot;')
+                .replaceAll("'", '&#039;');
+        }
+        
         $(document).ready(function() {
             console.log('Скрипт загружен и готов');
             console.log('MAX_LINKS:', MAX_LINKS);

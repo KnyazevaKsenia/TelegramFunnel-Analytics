@@ -1,4 +1,4 @@
-﻿namespace TelegramFunnelAnalytics.ReportWorker;
+﻿namespace CommonRabbitMq;
 
 public class AiReportContent
 {
@@ -7,4 +7,3 @@ public class AiReportContent
     public List<string> Recommendations { get; set; } = new();
     public List<string> Risks { get; set; } = new();
 }
-

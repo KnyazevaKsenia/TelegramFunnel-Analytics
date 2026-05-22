@@ -7,7 +7,7 @@
     <license type="expression">MIT</license>
     <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <description>A telegram statistic helper for mongo database</description>
-    <repository type="git" commit="92bd923642274d2fb1f764be10ec6ee7eb303c8b" />
+    <repository type="git" commit="40100ab7650cf1c06feed0e576660d9bb74ee1ec" />
     <dependencies>
       <group targetFramework="net8.0">
         <dependency id="CommonMongoModels" version="1.0.0" exclude="Build,Analyzers" />
