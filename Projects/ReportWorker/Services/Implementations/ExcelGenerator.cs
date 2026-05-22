@@ -9,7 +9,7 @@ public class ExcelGenerator : IExcelGenerator
 {
     private readonly ILogger<ExcelGenerator> _logger;
     private readonly IConfiguration _configuration;
-
+    
     public ExcelGenerator(
         ILogger<ExcelGenerator> logger,
         IConfiguration configuration)
@@ -18,7 +18,10 @@ public class ExcelGenerator : IExcelGenerator
         _configuration = configuration;
     }
     
-    public async Task<ReportResult> GenerateExcelReportAsync(ReportTask task, ProjectStatistics statistics)
+    public async Task<ReportResult> GenerateExcelReportAsync(
+        ReportTask task,
+        ProjectStatistics statistics,
+        AiReportContent? aiContent = null)
     {
         var stopwatch = System.Diagnostics.Stopwatch.StartNew();
 
@@ -26,8 +29,8 @@ public class ExcelGenerator : IExcelGenerator
         {
             _logger.LogInformation("Генерация Excel отчета {ReportId}", task.ReportId);
 
-            var excelBytes = GenerateExcelBytes(statistics);
-    
+            var excelBytes = GenerateExcelBytes(statistics, aiContent);
+
             var fileName = $"report_{task.ReportId}_{DateTime.UtcNow:yyyyMMddHHmmss}.xlsx";
             var storagePath = GetStoragePath();
             var fullPath = Path.Combine(storagePath, "excel", fileName);
@@ -42,11 +45,10 @@ public class ExcelGenerator : IExcelGenerator
                 ReportId = task.ReportId,
                 FileName = fileName,
                 FileSize = excelBytes.Length,
-                FileBytes = excelBytes, 
+                FileBytes = excelBytes,
                 GeneratedAt = DateTime.UtcNow,
                 IsSuccess = true
             };
-
         }
         catch (Exception ex)
         {
@@ -61,23 +63,27 @@ public class ExcelGenerator : IExcelGenerator
             };
         }
     }
-
-    public byte[] GenerateExcelBytes(ProjectStatistics statistics)
+    public byte[] GenerateExcelBytes(
+        ProjectStatistics statistics,
+        AiReportContent? aiContent = null)
     {
         using var workbook = new XLWorkbook();
         using var memoryStream = new MemoryStream();
 
         AddSummarySheet(workbook, statistics);
+    
+        if (aiContent != null)
+            AddAiInsightsSheet(workbook, aiContent);
 
         if (statistics.DailyStats.Any())
             AddDailyStatsSheet(workbook, statistics.DailyStats);
-        
+
         if (statistics.SourceStats.Any())
             AddSourceStatsSheet(workbook, statistics.SourceStats);
 
         if (statistics.CampaignStats.Any())
             AddCampaignStatsSheet(workbook, statistics.CampaignStats);
-        
+
         if (statistics.ContentStats.Any())
             AddContentStatsSheet(workbook, statistics.ContentStats);
 
@@ -90,8 +96,66 @@ public class ExcelGenerator : IExcelGenerator
         workbook.SaveAs(memoryStream);
         return memoryStream.ToArray();
     }
+    
+    private void AddAiInsightsSheet(IXLWorkbook workbook, AiReportContent ai)
+    {
+        var ws = workbook.Worksheets.Add("AI-анализ");
 
+        ws.Cell(1, 1).Value = "AI-анализ отчета";
+        ws.Cell(1, 1).Style.Font.Bold = true;
+        ws.Cell(1, 1).Style.Font.FontSize = 16;
 
+        ws.Cell(3, 1).Value = "Краткое резюме";
+        ws.Cell(3, 1).Style.Font.Bold = true;
+
+        ws.Cell(4, 1).Value = ai.ExecutiveSummary;
+        ws.Cell(4, 1).Style.Alignment.WrapText = true;
+        ws.Range(4, 1, 4, 4).Merge();
+
+        var row = 6;
+
+        ws.Cell(row, 1).Value = "Ключевые выводы";
+        ws.Cell(row, 1).Style.Font.Bold = true;
+        row++;
+
+        foreach (var item in ai.KeyFindings)
+        {
+            ws.Cell(row, 1).Value = $"• {item}";
+            ws.Range(row, 1, row, 4).Merge();
+            ws.Cell(row, 1).Style.Alignment.WrapText = true;
+            row++;
+        }
+
+        row++;
+
+        ws.Cell(row, 1).Value = "Рекомендации";
+        ws.Cell(row, 1).Style.Font.Bold = true;
+        row++;
+
+        foreach (var item in ai.Recommendations)
+        {
+            ws.Cell(row, 1).Value = $"• {item}";
+            ws.Range(row, 1, row, 4).Merge();
+            ws.Cell(row, 1).Style.Alignment.WrapText = true;
+            row++;
+        }
+
+        row++;
+
+        ws.Cell(row, 1).Value = "Риски";
+        ws.Cell(row, 1).Style.Font.Bold = true;
+        row++;
+
+        foreach (var item in ai.Risks)
+        {
+            ws.Cell(row, 1).Value = $"• {item}";
+            ws.Range(row, 1, row, 4).Merge();
+            ws.Cell(row, 1).Style.Alignment.WrapText = true;
+            row++;
+        }
+
+        ws.Columns().AdjustToContents();
+    }
     private void AddSummarySheet(IXLWorkbook workbook, ProjectStatistics statistics)
     {
         var ws = workbook.Worksheets.Add("Сводка");
@@ -332,7 +396,7 @@ public class ExcelGenerator : IExcelGenerator
 
         if (!string.IsNullOrEmpty(configured))
             return configured;
-
+    
         var appData = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
         return Path.Combine(appData, "TelegramFunnelAnalytics", "Reports");
     }

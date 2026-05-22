@@ -19,20 +19,23 @@ namespace TelegramFunnelAnalytics.ReportWorker.Services.Implementations
         {
             _charts = charts;
         }
-        public async System.Threading.Tasks.Task<ReportResult> GeneratePdfReportAsync(ReportTask task, ProjectStatistics stats)
+        public async Task<ReportResult> GeneratePdfReportAsync(
+            ReportTask task,
+            ProjectStatistics stats,
+            AiReportContent? aiContent = null)
         {
             var result = new ReportResult
             {
-                ReportId = Guid.NewGuid(),
+                ReportId = task.ReportId,
                 GeneratedAt = DateTime.UtcNow
             };
-            
+
             try
             {
                 result.FileName =
                     $"report_{task.ProjectId}_{task.StartDate:yyyyMMdd}_{task.EndDate:yyyyMMdd}_{DateTime.UtcNow:yyyyMMddHHmmss}.pdf";
 
-                result.FileBytes = await GeneratePdfBytes(task, stats);
+                result.FileBytes = await GeneratePdfBytes(task, stats, aiContent);
                 result.FileSize = result.FileBytes.Length;
                 result.IsSuccess = true;
             }
@@ -47,15 +50,15 @@ namespace TelegramFunnelAnalytics.ReportWorker.Services.Implementations
             return result;
         }
         
-        public async Task<byte[]> GeneratePdfBytes(ReportTask task, ProjectStatistics stats)
+        public async Task<byte[]> GeneratePdfBytes(ReportTask task, ProjectStatistics stats, AiReportContent? aiContent = null)
         {
-            var dailyChart = _charts.GenerateDailyChart(stats);
-            var sourcesChart = _charts.GenerateSourcesChart(stats);
-            var devicesChart = _charts.GenerateDevicesChart(stats);
-            var locationsChart = _charts.GenerateLocationsChart(stats);
-            var campaignsChart = _charts.GenerateCampaignsChart(stats);
-            var contentChart = _charts.GenerateContentChart(stats);
-
+            var dailyChart = await _charts.GenerateDailyChartAsync(stats);
+            var sourcesChart = await _charts.GenerateSourcesChartAsync(stats);
+            var devicesChart = await _charts.GenerateDevicesChartAsync(stats);
+            var locationsChart = await _charts.GenerateLocationsChartAsync(stats);
+            var campaignsChart = await _charts.GenerateCampaignsChartAsync(stats);
+            var contentChart = await _charts.GenerateContentChartAsync(stats);
+    
             var pdfBytes = Document.Create(document =>
             {
                 document.Page(page =>
@@ -220,7 +223,77 @@ namespace TelegramFunnelAnalytics.ReportWorker.Services.Implementations
                         x.Span("Страница "); x.CurrentPageNumber(); x.Span(" из "); x.TotalPages();
                     });
                 });
+                
+                if (aiContent != null)
+        
+            document.Page(page =>
+            {
+                page.Margin(40);
 
+                page.Content().Column(col =>
+                {
+                    col.Spacing(12);
+
+                    col.Item().Text("AI-анализ отчёта")
+                        .FontSize(22)
+                        .Bold()
+                        .FontColor("#2563EB");
+
+                    col.Item()
+                        .Border(1)
+                        .BorderColor("#E5E7EB")
+                        .CornerRadius(12)
+                        .Padding(15)
+                        .Column(card =>
+                        {
+                            card.Item().Text("Краткое резюме")
+                                .FontSize(16)
+                                .Bold();
+
+                            card.Item().PaddingTop(6).Text(aiContent.ExecutiveSummary)
+                                .FontSize(11);
+                        });
+
+                    col.Item().Text("Ключевые выводы")
+                        .FontSize(16)
+                        .Bold();
+
+                    foreach (var finding in aiContent.KeyFindings)
+                    {
+                        col.Item().Text($"• {finding}")
+                            .FontSize(11);
+                    }
+
+                    col.Item().PaddingTop(8).Text("Рекомендации")
+                        .FontSize(16)
+                        .Bold();
+
+                    foreach (var recommendation in aiContent.Recommendations)
+                    {
+                        col.Item().Text($"• {recommendation}")
+                            .FontSize(11);
+                    }
+
+                    col.Item().PaddingTop(8).Text("Риски")
+                        .FontSize(16)
+                        .Bold();
+    
+                    foreach (var risk in aiContent.Risks)
+                    {
+                        col.Item().Text($"• {risk}")
+                            .FontSize(11);
+                    }
+                });
+
+                page.Footer().AlignCenter().Text(x =>
+                {
+                    x.Span("Страница ");
+                    x.CurrentPageNumber();
+                    x.Span(" из ");
+                    x.TotalPages();
+                });
+            });
+                
             }).GeneratePdf();
 
             return await Task.FromResult(pdfBytes);

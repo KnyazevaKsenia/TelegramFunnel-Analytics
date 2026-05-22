@@ -11,11 +11,11 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     
     public DbSet<Project> Projects { get; set; }
     public DbSet<TrackingLink> TrackingLinks { get; set; }
-
+    
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-
+        
         
         builder.Entity<Project>(entity =>
         {

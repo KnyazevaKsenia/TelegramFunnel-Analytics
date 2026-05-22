@@ -37,13 +37,14 @@ public class AccountController : Controller
         {
             return View(model);
         }
-
-        if (!model.AcceptTerms)
+        
+        var existingUser = await _userManager.FindByEmailAsync(model.Email);
+        
+        if (existingUser != null)
         {
-            ModelState.AddModelError(string.Empty, "Необходимо принять условия использования");
+            ModelState.AddModelError(nameof(model.Email), "Пользователь с таким email уже зарегистрирован");
             return View(model);
         }
-        
         try
         {
             var user = new ApplicationUser
@@ -81,7 +82,7 @@ public class AccountController : Controller
         
         return View(model);
     }
-
+    
     [HttpGet]
     public IActionResult Login(string returnUrl = null)
     {

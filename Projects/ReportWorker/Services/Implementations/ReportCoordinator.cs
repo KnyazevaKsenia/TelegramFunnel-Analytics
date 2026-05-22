@@ -15,14 +15,15 @@ namespace TelegramFunnelAnalytics.ReportWorker.Services.Implementations
         private readonly IEmailService _emailService;
         private readonly ILogger<ReportCoordinator> _logger;
         private readonly MongoDbContext _dbContext;
-        
+        private readonly IAiReportService _aiReportService;
         public ReportCoordinator(
             IProjectStatisticManager statisticManager,
             IPdfGenerator pdfGenerator,
             IExcelGenerator excelGenerator,
             IEmailService emailService,
             ILogger<ReportCoordinator> logger,
-            MongoDbContext dbContext)
+            MongoDbContext dbContext, 
+            IAiReportService aiReportService)
         {
             _statisticManager = statisticManager;
             _pdfGenerator = pdfGenerator;
@@ -30,6 +31,7 @@ namespace TelegramFunnelAnalytics.ReportWorker.Services.Implementations
             _emailService = emailService;
             _logger = logger;
             _dbContext = dbContext;
+            _aiReportService = aiReportService;
         }
         
         public async Task GenerateReportAsync(ReportTask task, ReportFormat format)
@@ -51,12 +53,15 @@ namespace TelegramFunnelAnalytics.ReportWorker.Services.Implementations
                 
                 var statistics = await GetStatisticsAsync(task);
                 
+                var aiContent = await _aiReportService.GenerateReportContentAsync(task, statistics);
+                
                 ReportResult result = format switch
                 {
-                    ReportFormat.Pdf => await _pdfGenerator.GeneratePdfReportAsync(task, statistics),
-                    ReportFormat.Excel => await _excelGenerator.GenerateExcelReportAsync(task, statistics),
+                    ReportFormat.Pdf => await _pdfGenerator.GeneratePdfReportAsync(task, statistics, aiContent),
+                    ReportFormat.Excel => await _excelGenerator.GenerateExcelReportAsync(task, statistics, aiContent),
                     _ => throw new ArgumentException($"Неподдерживаемый формат отчета: {format}")
                 };
+                
                 
                 if (result.IsSuccess)
                 {

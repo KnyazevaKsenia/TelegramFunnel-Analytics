@@ -16,7 +16,7 @@ public class RegisterViewModel
     [Display(Name = "Компания/Бренд")]
     [StringLength(100, ErrorMessage = "Название компании не может превышать 100 символов")]
     public required string Company { get; set; }
-
+    
     [Required(ErrorMessage = "Email обязателен")]
     [EmailAddress(ErrorMessage = "Некорректный формат Email")]
     [Display(Name = "Email")]
@@ -32,8 +32,6 @@ public class RegisterViewModel
     [Display(Name = "Подтверждение пароля")]
     [Compare("Password", ErrorMessage = "Пароли не совпадают")]
     public required string ConfirmPassword { get; set; }
-
-    [Required(ErrorMessage = "Необходимо принять условия использования")]
-    [Display(Name = "Я принимаю условия использования и политику конфиденциальности")]
-    public bool AcceptTerms { get; set; }
+    
+    
 }

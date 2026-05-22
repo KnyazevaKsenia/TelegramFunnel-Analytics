@@ -8,6 +8,9 @@ using TelegramFunnelAnalytics.ReportWorker.Services.Implementations;
 using TelegramFunnelAnalytics.ReportWorker.Services.Interfaces;
 using QuestPDF;
 using QuestPDF.Infrastructure;
+using TelegramFunnelAnalytics.ReportWorker.Services.Interfaces;
+using TelegramFunnelAnalytics.ReportWorker.Services.Implementations;
+using TelegramFunnelAnalytics.ReportWorker.Settings;
 
 var builder = Host.CreateApplicationBuilder(args);
 
@@ -37,13 +40,19 @@ builder.Services.AddSingleton<IMongoCollection<ClickEvent>>(sp =>
 
 // 4. Services
 builder.Services.AddScoped<IProjectStatisticManager, ProjectStatisticManager>();
-builder.Services.AddScoped<IChartGenerator, ChartGenerator>();
-builder.Services.AddScoped<IIpLocationService, IpLocationService>();
 
+builder.Services.AddScoped<IIpLocationService, IpLocationService>();
+builder.Services.AddHttpClient<IChartGenerator, QuickChartGenerator>();
 builder.Services.AddScoped<IPdfGenerator, PdfGenerator>();
 builder.Services.AddScoped<IExcelGenerator, ExcelGenerator>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IReportCoordinator, ReportCoordinator>();
+
+builder.Services.Configure<PolzaAiSettings>(
+    builder.Configuration.GetSection("PolzaAi"));
+
+builder.Services.AddHttpClient<IAiReportService, PolzaAiReportService>();
+
 
 // 6. RabbitMQ Service
 builder.Services.AddSingleton<RabbitMqService>();

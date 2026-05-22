@@ -2,12 +2,13 @@
 
 namespace TelegramFunnelAnalytics.ReportWorker.Services.Interfaces;
 
+
 public interface IChartGenerator
-{
-    byte[] GenerateDailyChart(ProjectStatistics stats);
-    byte[] GenerateSourcesChart(ProjectStatistics stats);
-    byte[] GenerateCampaignsChart(ProjectStatistics stats);
-    byte[] GenerateLocationsChart(ProjectStatistics stats);
-    byte[] GenerateDevicesChart(ProjectStatistics stats);
-    byte[] GenerateContentChart(ProjectStatistics stats);
+{   
+    Task<byte[]> GenerateDailyChartAsync(ProjectStatistics stats);
+    Task<byte[]> GenerateSourcesChartAsync(ProjectStatistics stats);
+    Task<byte[]> GenerateDevicesChartAsync(ProjectStatistics stats);
+    Task<byte[]> GenerateLocationsChartAsync(ProjectStatistics stats);
+    Task<byte[]> GenerateCampaignsChartAsync(ProjectStatistics stats);
+    Task<byte[]> GenerateContentChartAsync(ProjectStatistics stats);
 }

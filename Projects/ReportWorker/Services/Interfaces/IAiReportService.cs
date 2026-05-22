@@ -3,10 +3,9 @@ using StatisticLibrary.Models.StatisticModels;
 
 namespace TelegramFunnelAnalytics.ReportWorker.Services.Interfaces;
 
-public interface IPdfGenerator
+public interface IAiReportService
 {
-    Task<ReportResult> GeneratePdfReportAsync(
+    Task<AiReportContent> GenerateReportContentAsync(
         ReportTask task,
-        ProjectStatistics statistics,
-        AiReportContent? aiContent = null);
+        ProjectStatistics statistics);
 }

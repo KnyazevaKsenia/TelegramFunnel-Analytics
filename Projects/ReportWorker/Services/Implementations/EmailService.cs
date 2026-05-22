@@ -5,7 +5,6 @@ using CommonRabbitMq;
 using Microsoft.Extensions.Options;
 using TelegramFunnelAnalytics.ReportWorker.Services.Interfaces;
 
-
 namespace TelegramFunnelAnalytics.ReportWorker.Services.Implementations
 {
     public class EmailService : IEmailService

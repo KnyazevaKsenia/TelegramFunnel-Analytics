@@ -4815,8 +4815,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\kn_ks\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\kn_ks\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
@@ -4827,12 +4826,8 @@
       "packagesPath": "C:\\Users\\kn_ks\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\kn_ks\\Desktop\\3rd\\TelegramFunnel-Solution\\Projects\\TelegramAnalytic\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\kn_ks\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config"
+        "C:\\Users\\kn_ks\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"

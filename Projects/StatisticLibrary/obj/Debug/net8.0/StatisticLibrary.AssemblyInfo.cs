@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("A telegram statistic helper for mongo database")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+67c8ac96114c8c31d6c13cc17177801b28f0d83d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+92bd923642274d2fb1f764be10ec6ee7eb303c8b")]
 [assembly: System.Reflection.AssemblyProductAttribute("StatisticLibrary")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StatisticLibrary")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

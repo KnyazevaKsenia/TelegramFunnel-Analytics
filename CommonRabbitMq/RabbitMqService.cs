@@ -110,7 +110,7 @@ public class RabbitMqService : IRabbitMqService, IDisposable
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "❌ Error creating report for project {ProjectId}", createReportRequest?.ProjectId);
+            _logger.LogError(ex, " Error creating report for project {ProjectId}", createReportRequest?.ProjectId);
             return false;
         }
     }
